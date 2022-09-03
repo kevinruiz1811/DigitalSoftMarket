@@ -1,0 +1,123 @@
+:root{
+    --principal-text-color: white;
+    --principal-bg-color: #2a83d1;
+}
+
+.breadcrumb{
+    margin-bottom: 0 !important;
+}
+
+.img-perfil{
+    height: 160px;
+}
+
+.formulario{
+    margin: 1.3rem 0;
+    background-color: var(--principal-text-color);
+    box-shadow: 0 .125rem .25rem rgba(0,0,0,.075);
+    border-radius: .25rem;
+}
+
+.p-datepicker, .p-datepicker input, .inputNumber input{
+    display: block;
+    width: auto;
+    height: 38px;
+    min-width: 100%;
+}
+
+body .ui-datatable .ui-datatable-header, body .ui-toolbar, body .ui-datatable thead th{
+    background-color: #fcfcfc;
+}
+
+.enunciado p{
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-size: 1.0250rem;
+}
+
+/*Gráfico*/
+
+.jqplot-title{
+    padding: 1rem 0;
+    font: bold 1.5rem Arial;
+    color: var(--principal-bg-color);
+}
+
+.jqplot-xaxis-label {
+    margin: 1.5rem 0;
+}
+
+.jqplot-yaxis-label{
+    margin: 0 1.5rem;
+}
+
+.ui-toolbar{
+    justify-content: flex-end;
+}
+
+.form-control:disabled, .form-control[readonly] {
+    background-color: var(--principal-text-color);
+}
+
+body .ui-datatable .ui-datatable-header{
+    text-align: left;
+}
+
+body .ui-dialog .ui-dialog-titlebar{
+    text-align: left;
+    background-color: var(--principal-bg-color);
+    color: var(--principal-text-color);
+    border-bottom: 1px solid gray;
+}
+
+body .ui-dialog .ui-dialog-titlebar .ui-dialog-titlebar-icon {
+    color: var(--principal-text-color);
+}
+
+body .ui-dialog .ui-dialog-titlebar .ui-dialog-titlebar-icon:hover {
+    background-color: var(--principal-text-color);
+    color: var(--principal-bg-color);
+    transition: .5s;
+}
+
+body .ui-dialog.ui-confirm-dialog .ui-dialog-content > span{
+    line-height: 1.4;
+}
+
+body .ui-dialog.ui-confirm-dialog .ui-dialog-content {
+    padding: 1.2rem;
+    font-size: 1rem;
+    color: black;
+    border-bottom: .1rem solid gray;
+}
+
+body .ui-dialog.ui-confirm-dialog .ui-dialog-content > span.ui-icon.ui-icon-warn:before {
+    color: #d41c2d;
+}
+
+body .ui-dialog .ui-dialog-footer {
+    border-top: 0 none;
+    background-color: var(--principal-text-color);
+    padding: 1rem 1.2rem;
+    margin: 0;
+    text-align: right;
+}
+
+@media screen and (max-width: 765px){
+    .formulario{
+        padding: 0 3rem;
+    } .img-perfil{
+        width: auto;
+    }
+}
+
+@media screen and (max-width: 445px){
+    .img-perfil{
+        width: 10.5rem;
+    }
+}
+
+@media screen and (max-width: 385px){
+    .salto{
+        margin-bottom: 1rem;
+    }
+}

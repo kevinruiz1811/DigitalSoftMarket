@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="../template/dashboardAdmin.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <ui:define name="head"><title>#{lang.lblPlanes}</title></ui:define>
+    <ui:define name="migas">
+        <li class="breadcrumb-item active">#{lang.lblPlanes}</li>
+    </ui:define>
+    <ui:define name="encabezado">
+        <h:form class="enunciado">
+            <h:outputLabel class="ml-3 h1" value="#{lang.lblPlanes}"/>
+            <p class="text-justify pt-3">#{lang.lblDesPlan} #{lang.lblCrudPlan}</p>
+            <p:commandButton action="registrarPlanes?faces-redirect=true" value="#{lang.lblRegistrarPlan}"
+                             class="ui-button-raised m-2" icon="pi pi-file"/>
+        </h:form>
+    </ui:define>
+    <ui:define name="body">
+        <hr/>
+        <div class="row">
+            <div class="col-md-1"/>
+            <div class="col-md-10 my-4">
+                <h:form id="form" enctype="multipart/form-data">
+                    <p:toolbar>
+                        <p:toolbarGroup>
+                            <p:fileUpload class="salto" value="#{controladorPlan.file}" mode="simple" skinSimple="true" label="Seleccionar Archivo .csv" accept=".csv"/>
+                            <h:commandButton action="#{controladorPlan.cargaExcel()}" onclick="location.reload()" value="#{lang.lblImportar}" styleClass="btn btn-primary ml-2" style="margin: 5px;"/>
+                            <p:commandButton value="#{lang.lblExportar}" icon="pi pi-upload" styleClass="ui-button-danger" ajax="false">
+                                <p:dataExporter type="xls" target="plan" fileName="#{lang.lblPlanes}"/>
+                            </p:commandButton>
+                        </p:toolbarGroup>
+                    </p:toolbar>
+                    <p:dataTable id="plan" value="#{controladorPlan.listarPlan()}" var="plan" widgetVar="tablaPlan" class="table table-hover"
+                                 rows ="8" 
+                                 paginatorPosition="bottom"
+                                 paginator="true"
+                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 currentPageReportTemplate="{startRecord}-{endRecord} #{lang.lblDe} {totalRecords} #{lang.lblPlanes}"
+                                 rowsPerPageTemplate="8,16,32"
+                                 emptyMessage="#{lang.lblMensajeVacio}">
+                        <p:growl id="message" showDetail="true"/>
+                        <f:facet name="header">
+                            <span class="filter-container ui-input-icon-left">
+                                <i class="pi pi-search"/>
+                                <p:inputText id="globalFilter" onkeyup="PF('tablaPlan').filter()" placeholder="#{lang.lblBuscar}"/>
+                            </span>
+                        </f:facet>
+                        <p:column headerText="#{lang.lblNombrePlan}" sortBy="#{plan.nombrePlan}" filterBy="#{plan.nombrePlan}" filterStyle="display:none">
+                            <h:outputText value="#{plan.nombrePlan}"/>
+                        </p:column>
+                        <p:column headerText="#{lang.lblContenidoPrinPlan}" sortBy="#{plan.contenidoPrincipalPlan}" filterStyle="display:none">
+                            <h:outputText value="#{plan.contenidoPrincipalPlan}"/>
+                        </p:column>
+                        <p:column headerText="#{lang.lblPrecioPlan}" sortBy="#{plan.precioPlan}" filterBy="#{plan.precioPlan}" filterStyle="display:none">
+                            <h:outputText value="#{plan.precioPlan}">
+                                <f:convertNumber type="currency"  currencySymbol="$"/>
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="#{lang.lblImagenPlan}" sortBy="#{plan.rutaImagen}" filterStyle="display:none">
+                            <a href="#{plan.rutaImagen}">
+                                <img src="#{plan.rutaImagen}" class="img-fluid"/>
+                            </a>
+                        </p:column>
+                        <p:column headerText="#{lang.lblAcciones}" exportable="false" class="text-center">
+                            <p:commandButton icon="pi pi-pencil" title="#{lang.lblEditar}"
+                                             action="#{controladorPlan.preEditarPlan(plan)}"
+                                             styleClass="edit-button rounded-button ui-button-warning mr-2">
+                            </p:commandButton>
+                            <p:commandButton icon="pi pi-trash" action="#{controladorPlan.eliminarPlan(plan)}" update="message" styleClass="edit-button rounded-button ui-button-danger">
+                                <p:confirm type="popup" header="#{lang.lblDialogTitulo}" message="#{lang.lblConfirmarPlan}" icon="pi pi-exclamation-triangle"/>
+                            </p:commandButton>
+                            <p:confirmPopup global="true">
+                                <p:commandButton value="#{lang.lblNo}" type="button" styleClass="ui-confirm-popup-no ui-button-flat"/>
+                                <p:commandButton value="#{lang.lblSi}" type="button" styleClass="ui-confirm-popup-yes" />
+                            </p:confirmPopup>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </div>
+            <div class="col-md-1"/>
+        </div>
+    </ui:define>
+</ui:composition>

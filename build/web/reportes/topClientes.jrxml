@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1aaf4d72-89e5-4561-8d9d-43c88f3640ad">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="idDetalleCotizacion" class="java.lang.Long"/>
+	<field name="nombrePlanes" class="java.lang.String"/>
+	<field name="cantidadTotalPlanes" class="java.lang.Short"/>
+	<field name="precioTotalPlanes" class="java.math.BigDecimal"/>
+	<field name="descripcionCotizacion" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="179" y="18" width="191" height="20" uuid="f1893771-12c0-4bd8-b94b-aba4ef36a5e0"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Reporte de las cotizaciones ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="108" y="49" width="345" height="20" uuid="ab8c70f4-ea3c-4c62-b9a8-aa51185c1d58"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[Aquí podrás ver un reporte con las cotizaciones que están en el sistema.]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="123" height="20" uuid="4e2d312a-c946-48da-a538-a6711d42bccb"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Número de la cotización]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="123" y="0" width="111" height="20" uuid="07838196-346c-4f4c-985d-13c19da2b155"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Nombre de los planes]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="234" y="0" width="99" height="20" uuid="fb9052db-e168-4f94-bd37-77fffb413fc4"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Cantidad de planes]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="333" y="0" width="69" height="20" uuid="c128d7ed-464b-46f6-8c69-05bb86192898"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Valor total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="402" y="0" width="153" height="20" uuid="e8ac9cc7-9908-4a5d-b00a-c308cac40c8e"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Descripción de la cotización]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement stretchType="RelativeToTallestObject" mode="Transparent" x="0" y="0" width="123" height="20" uuid="2e8f7078-b10b-4e5a-b695-b431adf4dc53"/>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Transparent" x="123" y="0" width="111" height="20" uuid="6fc63711-e328-4291-a715-5a787d0ff98e"/>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Transparent" x="234" y="0" width="99" height="20" uuid="80678b68-79be-484f-8eeb-c944c09f19bb"/>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Transparent" x="333" y="0" width="69" height="20" uuid="94486a0c-cd2b-49a2-86f0-c0d4b94e0d96"/>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Transparent" x="402" y="0" width="153" height="20" uuid="96191827-779f-4d7c-aa22-ec1e125c1154"/>
+			</rectangle>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="48" width="123" height="20" uuid="05b4ea4e-2507-4aee-a9ca-9e09c7577ace"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{idDetalleCotizacion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="123" y="0" width="111" height="125" uuid="f9ff3db7-bc44-4893-b765-a3403e46fffd"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{nombrePlanes}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="234" y="33" width="99" height="48" uuid="a17a909f-2c11-40cf-9368-6f7843389c3c"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{cantidadTotalPlanes}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="333" y="33" width="69" height="48" uuid="ccca182d-d9ae-422d-a88f-7605fc5a3014"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{precioTotalPlanes}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="402" y="0" width="153" height="125" uuid="cf161178-7ce3-4685-b924-866dbab363c5"/>
+				<textElement textAlignment="Justified"/>
+				<textFieldExpression><![CDATA[$F{descripcionCotizacion}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement mode="Transparent" x="0" y="0" width="123" height="125" uuid="1f16d109-59ae-4d5c-953d-52107396d0d8"/>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Transparent" x="123" y="0" width="111" height="125" uuid="8ff6cad9-aa4b-4d2d-b257-a53efbbde4cf"/>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Transparent" x="234" y="0" width="99" height="125" uuid="57de4e1a-7bf0-4215-ad25-0960e79989b8"/>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Transparent" x="333" y="0" width="69" height="125" uuid="98e688f5-1fc0-4fea-80fd-b6e0f79d6702"/>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Transparent" x="402" y="0" width="163" height="125" uuid="d64c27d8-0e4c-4b52-b93b-b22ad613c461"/>
+			</rectangle>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

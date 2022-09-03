@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="../template/dashboardAdmin.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <ui:define name="head"><title>#{lang.lblPrestacion}</title></ui:define>
+    <ui:define name="migas">
+        <li class="breadcrumb-item bread"><h:commandLink action="ordenPrestacionServicios?faces-redirect=true" value="#{lang.lblOrdenPrestacionServicio}"/></li>
+        <li class="breadcrumb-item active">#{lang.lblRegistrarOrdenPrestacion}</li>
+    </ui:define>
+    <ui:define name="body">
+        <div class="row">
+            <div class="col-md-1"/>
+            <div class="col-md-10 my-4">         
+                <h:form id="form">
+                    <p:dataTable id="detalleVenta" value="#{controladorOrdenPrestacionServicio.listarDetalleVenta()}" var="detalleVenta" widgetVar="tablaDetalle" class="table table-hover"
+                                 rows ="8" 
+                                 paginatorPosition="bottom"
+                                 paginator="true"
+                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 currentPageReportTemplate="{startRecord}-{endRecord} #{lang.lblDe} {totalRecords} #{lang.lblUsuarios}"
+                                 rowsPerPageTemplate="8,16,32" emptyMessage="#{lang.lblMensajeVacio}">
+                        <f:facet name="header">
+                            <span><h4>#{lang.lblSelectDetalleVentaOrdenPre}</h4></span>
+                            <span class="filter-container ui-input-icon-left">
+                                <i class="pi pi-search"/>
+                                <p:inputText id="globalFilter" onkeyup="PF('tablaDetalle').filter()" placeholder="#{lang.lblBuscar}"/>
+                            </span>
+                        </f:facet>
+                        <p:column headerText="#{lang.lblNumeroContratoOrdenPre}" sortBy="#{detalleVenta.numeroContrato.numeroContrato}" filterStyle="display:none">
+                            <h:outputText value="#{detalleVenta.numeroContrato.numeroContrato}"/>
+                        </p:column>
+                        <p:column headerText="#{lang.lblAcciones}" exportable="false">
+                            <p:commandButton  icon="pi pi-pencil"
+                                              action="#{controladorOrdenPrestacionServicio.seleccionarDetalleVenta(detalleVenta)}"
+                                              styleClass="edit-button rounded-button ui-button-info mr-2"
+                                              title="#{lang.lblRegistro}">
+                            </p:commandButton>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </div>
+            <div class="col-md-1"/>
+        </div>
+    </ui:define>
+</ui:composition>

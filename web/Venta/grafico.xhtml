@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="../template/dashboardAdmin.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <ui:define name="head"><title>#{lang.lblGraficoVenta}</title></ui:define>
+    <ui:define name="migas">
+        <li class="breadcrumb-item active">#{lang.lblGraficoVenta}</li>
+    </ui:define>
+    <ui:define name="encabezado">
+        <h:form class="enunciado">
+            <h:outputLabel class="ml-3 h1" value="#{lang.lblGraficoVenta}"/>
+            <p class="text-justify pt-3">#{lang.lblEnunciadoGrafico}</p>
+        </h:form>
+    </ui:define>
+    <ui:define name="body">
+        <hr/>
+        <div class="row">
+            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2"/>
+            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 mt-4 mb-3">
+                <h:form id="grafico">
+                    <p:chart id="chartBar" type="bar" model="#{controladorVenta.barModel}" responsive="true"/>
+                </h:form>
+                <h:form id="reporte">
+                    <div class="text-center">
+                        <h:commandButton value="#{lang.lblBtnReporte}" actionListener="#{controladorVenta.reporteVenta}" class="btn btn-primary my-4"/>
+                    </div>
+                </h:form>
+            </div>
+            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2"/>
+        </div>
+    </ui:define>
+</ui:composition>

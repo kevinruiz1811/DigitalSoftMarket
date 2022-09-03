@@ -1,0 +1,153 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="../template/dashboardAdmin.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="head"><title>#{lang.lblInfluenciador}</title></ui:define>
+    <ui:define name="migas">
+        <li class="breadcrumb-item bread"><h:commandLink action="usuario?faces-redirect=true" value="#{lang.lblUsuarios}"/></li>
+        <li class="breadcrumb-item active">#{lang.lblInfluenciador}</li>
+    </ui:define>
+    <ui:define name="body">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-2"/>
+                <div class="col-md-8">
+                    <h:form class="formulario">
+                        <div class="text-center">
+                            <h:outputLabel value="#{lang.lblInfluenciador}" class="h2 my-4"/>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-1"/>
+                            <div class="col-md-5 form-group">
+                                <p:outputLabel value="#{lang.lblNumId}" for="numId"/>
+                                <p:inputText id="numId" value="#{controladorUsuario.usuario.numeroIdentificacion}" class="form-control" title="#{lang.lblNumId}" readonly="true"/>
+                            </div>
+                            <div class="col-md-5 form-group">
+                                <p:outputLabel value="#{lang.lblTipoId}" for="tipoId"/>
+                                <p:selectOneMenu id="tipoId" value="#{controladorUsuario.tipoIdentificacion.idTipoIdentificacion}" class="form-control" title="#{lang.lblTipoId}" disabled="true">
+                                    <f:selectItems value="#{controladorTipoIdentificacion.listarTipoIdentificacion()}" var="tipo" itemValue="#{tipo.idTipoIdentificacion}" itemLabel="#{tipo.tipoIdentificacion}"/>
+                                </p:selectOneMenu>
+                            </div>
+                            <div class="col-md-1"/>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-1"/>
+                            <div class="col-md-5 form-group">
+                                <p:outputLabel value="#{lang.lblNombre}" for="nombres"/>
+                                <p:inputText id="nombres" value="#{controladorUsuario.usuario.nombres}" class="form-control" title="#{lang.lblNombre}" readonly="true"/>
+                            </div>
+                            <div class="col-md-5 form-group">
+                                <p:outputLabel value="#{lang.lblApellido}" for="apellidos"/>
+                                <p:inputText id="apellidos" value="#{controladorUsuario.usuario.apellidos}" class="form-control" title="#{lang.lblApellido}" readonly="true"/>
+                            </div>
+                            <div class="col-md-1"/>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-1"/>
+                            <div class="col-md-5 form-group">
+                                <p:outputLabel value="#{lang.lblCorreo}" for="correo"/>
+                                <p:inputText id="correo" value="#{controladorUsuario.usuario.correoElectronico}" class="form-control" title="#{lang.lblCorreo}" readonly="true"/>
+                            </div>
+                            <div class="col-md-5 form-group">
+                                <p:outputLabel value="#{lang.lblNumeroCelular}" for="numCelular"/>
+                                <p:inputText id="numCelular" value="#{controladorUsuario.usuario.numeroCelular}" class="form-control" title="#{lang.lblNumeroCelular}" readonly="true"/>
+                            </div>
+                            <div class="col-md-1"/>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-1"/>
+                            <div class="col-md-5 form-group">
+                                <p:outputLabel value="#{lang.lblDepartamento}" for="departamento"/>
+                                <p:selectOneMenu id="departamento" value="#{controladorUsuario.departamento.idDepartamento}" class="form-control" title="#{lang.lblDepartamento}" disabled="true">
+                                    <f:selectItems value="#{controladorDepartamento.listarDepartamento()}" var="depto" itemValue="#{depto.idDepartamento}" itemLabel="#{depto.departamento}"/>
+                                </p:selectOneMenu>
+                            </div>
+                            <div class="col-md-5 form-group">
+                                <p:outputLabel value="#{lang.lblTipoEmpleado}" for="tipoEmpleado"/>
+                                <p:selectOneMenu id="tipoEmpleado" value="#{controladorUsuario.tipoEmpleado.idTipoEmpleado}" class="form-control" title="#{lang.lblTipoEmpleado}" disabled="true">
+                                    <f:selectItems value="#{controladorTipoEmpleado.listarTipoEmpleado()}" var="empleado" itemValue="#{empleado.idTipoEmpleado}" itemLabel="#{empleado.tipoEmpleado}"/>
+                                </p:selectOneMenu>
+                            </div>
+                            <div class="col-md-1"/>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-1"/>
+                            <div class="col-md-5 form-group">
+                                <p:outputLabel value="#{lang.lblDireccion}" for="direccion"/>
+                                <p:inputText id="direccion" value="#{controladorUsuario.empleado.direccion}" class="form-control" title="#{lang.lblDireccion}" readonly="true"/>
+                            </div>
+                            <div class="col-md-5 form-group">
+                                <p:outputLabel value="#{lang.lblTipoNicho}" for="nicho"/>
+                                <p:selectOneMenu id="nicho" value="#{controladorUsuario.tipoNicho.idTipoNicho}" class="form-control" title="#{lang.lblTipoNicho}" disabled="true">
+                                    <f:selectItems value="#{controladorTipoNicho.listarTipoNicho()}" var="tipoNicho" itemValue="#{tipoNicho.idTipoNicho}" itemLabel="#{tipoNicho.tipoNicho}"/>
+                                </p:selectOneMenu>
+                            </div>
+                            <div class="col-md-1"/>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-1"/>
+                            <div class="col-md-5 form-group">
+                                <p:outputLabel value="#{lang.lblRedSocialPrincipal}" for="redSocialPrincipal"/>
+                                <p:selectOneMenu id="redSocialPrincipal" value="#{controladorUsuario.redSocialPrincipal.idRedSocial}" class="form-control" title="#{lang.lblRedSocialPrincipal}" disabled="true">
+                                    <f:selectItems value="#{controladorRedSocial.listarRedSocial()}" var="redSocialPrincipal" itemValue="#{redSocialPrincipal.idRedSocial}" itemLabel="#{redSocialPrincipal.redSocial}"/>
+                                </p:selectOneMenu>
+                            </div>
+                            <div class="col-md-5 form-group">
+                                <p:outputLabel value="#{lang.lblSeguidoresPrincipal}" for="seguidoresRedSocialPrincipal"/>
+                                <p:inputNumber id="seguidoresRedSocialPrincipal" value="#{controladorUsuario.influenciador.cantidadSeguidoresPrincipal}" class="inputNumber" title="#{lang.lblSeguidoresPrincipal}"
+                                               decimalPlaces="0" decimalSeparator="." thousandSeparator="," readonly="true"/>
+                            </div>
+                            <div class="col-md-1"/>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-1"/>
+                            <div class="col-md-5 form-group">
+                                <p:outputLabel value="#{lang.lblNombreUsuarioPrincipal}" for="usuarioPrincipal"/>
+                                <p:inputText id="usuarioPrincipal" value="#{controladorUsuario.influenciador.nombreUsuarioPrincipal}" class="form-control" title="#{lang.lblNombreUsuarioPrincipal}" readonly="true"/>
+                            </div>
+                            <div class="col-md-5 form-group">
+                                <p:outputLabel value="#{lang.lblRedSocialSecundaria}" for="redSocialSecundaria"/>
+                                <p:selectOneMenu id="redSocialSecundaria" value="#{controladorUsuario.redSocialSecundaria.idRedSocial}" class="form-control" title="#{lang.lblRedSocialSecundaria}" disabled="true">
+                                    <f:selectItems value="#{controladorRedSocial.listarRedSocial()}" var="redSocialSecundaria" itemValue="#{redSocialSecundaria.idRedSocial}" itemLabel="#{redSocialSecundaria.redSocial}"/>
+                                </p:selectOneMenu>
+                            </div>
+                            <div class="col-md-1"/>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-1"/>
+                            <div class="col-md-5 form-group">
+                                <p:outputLabel value="#{lang.lblSeguidoresPrincipal}" for="seguidoresRedSecundaria"/>
+                                <p:inputNumber id="seguidoresRedSecundaria" value="#{controladorUsuario.influenciador.cantidadSeguidoresSecundaria}" class="inputNumber" title="#{lang.lblSeguidoresPrincipal}" 
+                                               decimalPlaces="0" decimalSeparator="." thousandSeparator="," readonly="true"/>
+                            </div>
+                            <div class="col-md-5 form-group">
+                                <p:outputLabel value="#{lang.lblNombreUsuarioSecundaria}" for="usuarioSecundaria"/>
+                                <p:inputText id="usuarioSecundaria" value="#{controladorUsuario.influenciador.nombreUsuarioSecundaria}" class="form-control" title="#{lang.lblNombreUsuarioSecundaria}" readonly="true"/>
+                            </div>
+                            <div class="col-md-1"/>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-1"/>
+                            <div class="col-md-5 form-group">
+                                <p:outputLabel value="#{lang.lblEstadoUsuario}" for="estado"/>
+                                <p:selectOneMenu id="estado" value="#{controladorUsuario.estadoUsuario.idEstadoUsuario}" class="form-control" title="#{lang.lblEstadoUsuario}" disabled="true">
+                                    <f:selectItems value="#{controladorEstadoUsuario.listarEstadoUsuario()}" var="est" itemValue="#{est.idEstadoUsuario}" itemLabel="#{est.estadoUsuario}"/>
+                                </p:selectOneMenu>
+                            </div>
+                            <div class="col-md-6 form-group"/>
+                        </div>
+                        <div class="text-center">
+                            <p:commandButton action="usuario?faces-redirect=true" value="#{lang.lblVoler}" icon="pi pi-arrow-left"
+                                             class="btn btn-primary mt-3 mb-4"/>
+                        </div>
+                    </h:form>
+                </div>
+                <div class="col-md-2"/>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

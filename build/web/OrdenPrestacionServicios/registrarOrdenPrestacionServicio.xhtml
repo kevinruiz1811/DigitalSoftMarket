@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="../template/dashboardAdmin.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <ui:define name="head"><title>#{lang.lblRegistrarOrdenPrestacion}</title></ui:define>
+    <ui:define name="preRender">
+        <f:event type="preRenderView" listener="#{controladorOrdenPrestacionServicio.limpiarOrdenPrestacion()}"/>
+    </ui:define>
+    <ui:define name="migas">
+        <li class="breadcrumb-item bread"><h:commandLink action="ordenPrestacionServicios" value="#{lang.lblOrdenPrestacionServicio}"/></li>
+        <li class="breadcrumb-item active">#{lang.lblRegistrarOrdenPrestacion}</li>
+    </ui:define>
+    <ui:define name="body">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-2"/>
+                <div class="col-md-8">
+                    <h:form id="form" class="formulario">
+                        <p:growl id="msj" showDetail="true" life="3000"/>
+                        <div class="text-center">
+                            <h:outputLabel value="#{lang.lblRegistrarOrdenPrestacion}" class="h2 my-4"/>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-1"/>
+                            <div class="col-md-10 form-group">
+                                <p:outputLabel value="#{lang.lblNumeroContratoOrdenPre}" for="contrato"/>
+                                <p:inputText id="contrato" value="#{controladorOrdenPrestacionServicio.detalleVenta.numeroContrato.numeroContrato}" class="form-control" readonly="true"/>
+                            </div>
+                            <div class="col-md-1"/>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-1"/>
+                            <div class="col-md-10 form-group">
+                                <p:outputLabel value="#{lang.lblFechaVenta}" for="fechaVenta"/>
+                                <p:datePicker id="fechaVenta" value="#{controladorOrdenPrestacionServicio.detalleVenta.fechaVenta}" locale="es" disabled="true"/>
+                            </div>
+                            <div class="col-md-1"/>
+                        </div>
+                        <div class="form-row text-center">
+                            <div class="col-md-1"/>
+                            <div class="col-md-10 form-group">
+                                <p:outputLabel value="#{lang.lblDescripcionVenta}" for="descripcionVenta"/>
+                                <p:inputTextarea id="descripcionVenta" value="#{controladorOrdenPrestacionServicio.detalleVenta.descripcionVenta}" class="form-control" readonly="true" rows="4"/>
+                            </div>
+                            <div class="col-md-1"/>
+                        </div>
+                        <hr/>
+                        <div class="form-row">
+                            <div class="col-md-2"/>
+                            <div class="col-md-8 form-group">
+                                <p:outputLabel value="#{lang.lblNombreEvento}" for="evento"/>
+                                <p:inputText id="evento" value="#{controladorOrdenPrestacionServicio.ordenPrestacionServicio.nombreEvento}" class="form-control" maxlength="50"
+                                             required="true" placeholder="#{lang.txtNombreCampaña}" requiredMessage="#{lang.txtRNombreEvento}">
+                                    <f:validateRegex pattern="^[\w]+[Á-ÿ\u00f1\u00d1\s\w\,\.\-\:\;]+$"/>
+                                </p:inputText>
+                            </div>
+                            <div class="col-md-2"/>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-2"/>
+                            <div class="col-md-8 form-group">
+                                <p:outputLabel value="#{lang.lblDescriEvento}" for="descripcion"/>
+                                <p:inputTextarea id="descripcion" value="#{controladorOrdenPrestacionServicio.ordenPrestacionServicio.descripcionEvento}" class="form-control" maxlength="300"
+                                                 required="true" placeholder="#{lang.txtDescCampaña}" requiredMessage="#{lang.txtRDescripEvento}" rows="4">
+                                    <f:validateRegex pattern="^[\w]+[Á-ÿ\u00f1\u00d1\s\w\,\.\-\:\;]+$"/>
+                                </p:inputTextarea>
+                            </div>
+                            <div class="col-md-2"/>
+                        </div>
+                        <div class="text-center">
+                            <p:commandButton value="#{lang.lblBtnRegistro}" class="btn btn-primary mt-3 mb-4" icon="pi pi-check" update="form"
+                                             actionListener="#{controladorOrdenPrestacionServicio.registrarOrdenPrestacionServicio()}"/>
+                        </div>
+                    </h:form>
+                </div>
+                <div class="col-md-2"/>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

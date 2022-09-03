@@ -1,0 +1,88 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="../template/dashboardAdmin.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <ui:define name="head"><title>#{lang.lblRegistrarPlan}</title></ui:define>
+    <ui:define name="preRender">
+        <f:event type="preRenderView" listener="#{controladorPlan.limpiarPlan()}"/>
+    </ui:define>
+    <ui:define name="migas">
+        <li class="breadcrumb-item bread"><h:commandLink action="planesAdmin?faces-redirect=true" value="#{lang.lblPlanes}"/></li>
+        <li class="breadcrumb-item active">#{lang.lblRegistrarPlan}</li>
+    </ui:define>
+    <ui:define name="body">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-2"/>
+                <div class="col-md-8">
+                    <h:form id="form" class="formulario" enctype="multipart/form-data">
+                        <p:growl id="msj" showDetail="true" life="3000"/>
+                        <div class="text-center">
+                            <h:outputLabel value="#{lang.lblRegistrarPlan}" class="h2 my-4"/>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-1"/>
+                            <div class="col-md-10 form-group">
+                                <p:outputLabel value="#{lang.lblImagenPlan}" for="imagen"/><br/>
+                                <p:fileUpload id="imagen" value="#{controladorPlan.file}" mode="simple" skinSimple="true" virusScan="true" required="true"
+                                              chooseIcon="pi pi-upload" label="#{lang.txtSeleccion}" allowTypes="/(\.|\/)(png|jpg|jp?g)$/"/>
+                            </div>
+                            <div class="col-md-1"/>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-1"/>
+                            <div class="col-md-10 form-group">
+                                <p:outputLabel value="#{lang.lblNombrePlan}" for="nombre"/>
+                                <p:inputText id="nombre" value="#{controladorPlan.plan.nombrePlan}" class="form-control" maxlength="30"
+                                             required="true" placeholder="#{lang.lblFormularioNombrePlan}" requiredMessage="#{lang.txtRNombrePlan}">
+                                    <f:validateRegex pattern="^[\w]+[Á-ÿ\u00f1\u00d1\s\w\,\.\-\:\;]+$"/>
+                                </p:inputText>
+                            </div>
+                            <div class="col-md-1"/>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-1"/>
+                            <div class="col-md-10 form-group">
+                                <p:outputLabel value="#{lang.lblContenidoPrinPlan}" for="contenido"/>
+                                <p:inputTextarea id="contenido" value="#{controladorPlan.plan.contenidoPrincipalPlan}" class="form-control"  maxlength="500"
+                                                 required="true" placeholder="#{lang.lblFormularioContenPlan}" requiredMessage="#{lang.txtRDescrpPlan}" rows="3">
+                                    <f:validateRegex pattern="^[\w]+[Á-ÿ\u00f1\u00d1\s\w\,\.\-\:\;]+$"/>
+                                </p:inputTextarea>
+                            </div>
+                            <div class="col-md-1"/>
+                        </div>                         
+                        <div class="form-row ">
+                            <div class="col-md-1"/>
+                            <div class="col-md-10 form-group">
+                                <p:outputLabel value="#{lang.lblPrecioPlan}" for="precio"/>
+                                <p:inputNumber id="precio" value="#{controladorPlan.plan.precioPlan}" class="inputNumber" symbol="$" thousandSeparator="," decimalSeparator="."
+                                               required="true" requiredMessage="#{lang.txtRPrecioPlan}"/>
+                            </div>
+                            <div class="col-md-1"/>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-1"/>
+                            <div class="col-md-10 form-group">
+                                <p:outputLabel value="#{lang.lblDescriPlan}" for="descripcion"/>
+                                <p:inputTextarea id="descripcion" value="#{controladorPlan.plan.descripcionPlan}" class="form-control"  maxlength="1000"
+                                                 required="true" placeholder="#{lang.lblFormularioDescPlan}" requiredMessage="#{lang.txtRDescripPlan2}" rows="4">
+                                    <f:validateRegex pattern="^[\w]+[Á-ÿ\u00f1\u00d1\s\w\,\.\-\:\;]+$"/>
+                                </p:inputTextarea>
+                            </div>
+                            <div class="col-md-1"/>
+                        </div>
+                        <div class="text-center">
+                            <p:commandButton value="#{lang.lblBtnRegistro}" class="btn btn-primary mt-3 mb-4" icon="pi pi-check"
+                                             actionListener="#{controladorPlan.registrarPlan()}" update="form"/>
+                        </div>
+                    </h:form>
+                </div>
+                <div class="col-md-2"/>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

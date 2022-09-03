@@ -1,0 +1,112 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="../template/dashboardEmpleado.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="head"><title>#{lang.lblPerfil}</title></ui:define>
+    <ui:define name="migas">
+        <li class="breadcrumb-item active">#{lang.lblPerfil}</li>
+    </ui:define>
+    <ui:define name="body">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-2"/>
+                <div class="col-md-8">                      
+                    <h:form id="form" class="formulario" enctype="multipart/form-data">
+                        <p:growl id="datos" showDetail="true" life="3000"/>
+                        <div class="text-center">
+                            <h:outputLabel value="#{lang.lblPerfil}" class="h2 my-4"/>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-md-1"/>
+                            <div class="col-md-10 text-center">
+                                <p:graphicImage id="image" url="#{controladorLogin.usuarioLogueado.rutaImagen}" class="img-perfil rounded" alt="Usuario"/>
+                            </div>
+                            <div class="col-md-1"/>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-1"/>
+                            <div class="col-md-10 text-center">
+                                <p:fileUpload class="salto" value="#{controladorLogin.file}" mode="simple" skinSimple="true" virusScan="true" chooseIcon="pi pi-upload" label="#{lang.txtSeleccion}" allowTypes="/(\.|\/)(png|jpg|jp?g)$/"/>
+                                <p:commandButton value="#{lang.lblBtnGuardar}" ajax="false" actionListener="#{controladorLogin.upload()}" styleClass="p-mt-3 ui-button-outlined p-d-block" update="image"/>
+                            </div>
+                            <div class="col-md-1"/>
+                        </div>
+                        <div class="form-row mt-4">
+                            <div class="col-md-1"/>
+                            <div class="col-md-5 form-group">
+                                <p:outputLabel value="#{lang.lblNumId}" for="numId"/>
+                                <p:inputText id="numId" value="#{controladorLogin.usuarioLogueado.numeroIdentificacion}" class="form-control" maxlength="10"
+                                             placeholder="#{lang.txtNumId}" required="true" requiredMessage="#{lang.lblNumIdRequerido}">
+                                    <f:validator validatorId="validadorNumeroIdentificacion" for="numId"/>
+                                </p:inputText>
+                            </div>
+                            <div class="col-md-5 form-group">
+                                <p:outputLabel value="#{lang.lblTipoId}" for="tipoId"/>
+                                <p:selectOneMenu id="tipoId" value="#{controladorLogin.tipoIdentificacionLogueado.idTipoIdentificacion}" class="form-control"
+                                                 required="true" requiredMessage="#{lang.lblTipoIdRequerido}">
+                                    <f:selectItems value="#{controladorTipoIdentificacion.listarTipoIdentificacion()}" var="tipo" itemValue="#{tipo.idTipoIdentificacion}" itemLabel="#{tipo.tipoIdentificacion}"/>
+                                </p:selectOneMenu>
+                            </div>
+                            <div class="col-md-1"/>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-1"/>
+                            <div class="col-md-5 form-group">
+                                <p:outputLabel value="#{lang.lblNombre}" for="nombres"/>
+                                <p:inputText id="nombres" value="#{controladorLogin.usuarioLogueado.nombres}" class="form-control" maxlength="30"
+                                             placeholder="#{lang.txtNombre}" required="true" requiredMessage="#{lang.lblNombreRequerido}">
+                                    <f:validator validatorId="validadorNombres" for="nombres"/>
+                                </p:inputText>
+                            </div>
+                            <div class="col-md-5 form-group">
+                                <p:outputLabel value="#{lang.lblApellido}" for="apellidos"/>
+                                <p:inputText id="apellidos" value="#{controladorLogin.usuarioLogueado.apellidos}" class="form-control" maxlength="30"
+                                             placeholder="#{lang.txtApellido}" required="true" requiredMessage="#{lang.lblApellidoRequerido}">
+                                    <f:validator validatorId="validadorApellidos" for="apellidos"/>
+                                </p:inputText>
+                            </div>
+                            <div class="col-md-1"/>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-1"/>
+                            <div class="col-md-5 form-group">
+                                <p:outputLabel value="#{lang.lblCorreo}" for="correo"/>
+                                <p:inputText id="correo" value="#{controladorLogin.usuarioLogueado.correoElectronico}" class="form-control"  maxlength="50"
+                                             placeholder="#{lang.txtCorreo}" required="true" requiredMessage="#{lang.lblCorreoRequerido}">
+                                    <f:validator validatorId="validadorCorreoElectronico" for="correo"/>
+                                </p:inputText>
+                            </div>
+                            <div class="col-md-5 form-group">
+                                <p:outputLabel value="#{lang.lblNumeroCelular}" for="numCelular"/>
+                                <p:inputText id="numCelular" value="#{controladorLogin.usuarioLogueado.numeroCelular}" class="form-control" maxlength="10"
+                                             placeholder="#{lang.txtNumeroCelular}" required="true" requiredMessage="#{lang.lblNumeroCelularRequerido}">
+                                    <f:validator validatorId="validadorNumeroCelular" for="numCelular"/>
+                                </p:inputText>
+                            </div>
+                            <div class="col-md-1"/>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-1"/>
+                            <div class="col-md-5 form-group">
+                                <p:outputLabel value="#{lang.lblDepartamento}" for="departamento"/>
+                                <p:selectOneMenu id="departamento" value="#{controladorLogin.departamentoLogueado.idDepartamento}" class="form-control" required="true" requiredMessage="#{lang.lblDepartamentoRequerido}">
+                                    <f:selectItems value="#{controladorDepartamento.listarDepartamento()}" var="depto" itemValue="#{depto.idDepartamento}" itemLabel="#{depto.departamento}"/>
+                                </p:selectOneMenu>
+                            </div>
+                            <div class="col-md-6"/>
+                        </div>
+                        <div class="text-center">
+                            <p:commandButton value="#{lang.lblBtnActualizar}" icon="pi pi-user" class="btn btn-primary mt-3 mb-4"
+                                             update="datos" actionListener="#{controladorLogin.editarUsuarioLogueado()}"/>
+                        </div>
+                    </h:form>
+                </div>
+                <div class="col-md-2"/>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

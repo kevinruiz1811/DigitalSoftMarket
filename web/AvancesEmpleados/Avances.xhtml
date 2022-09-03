@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="../template/dashboardAdmin.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <ui:define name="head"><title>#{lang.lblAvances}</title></ui:define>
+    <ui:define name="migas">
+        <li class="breadcrumb-item active">#{lang.lblAvances}</li>
+    </ui:define>
+    <ui:define name="encabezado">
+        <h:form class="enunciado">
+            <h:outputLabel class="ml-3 h1" value="#{lang.lblAvanceTitulo}"/>
+            <p class="text-justify pt-3">#{lang.lblAquiAvance} #{lang.lblConsultAvance} #{lang.lblContAvanceEmpleado}</p>
+        </h:form>
+    </ui:define>
+    <ui:define name="body">
+        <hr/>
+        <div class="row">
+            <div class="col-md-1"/>
+            <div class="col-md-10 my-4">
+                <h:form id="form">
+                    <div class="card crud-demo">
+                        <p:toolbar>
+                            <p:toolbarGroup>
+                                <p:commandButton value="#{lang.lblExportar}" icon="pi pi-upload" styleClass="ui-button-danger" ajax="false">
+                                    <p:dataExporter type="xls" target="avances" fileName="#{lang.lblAvanceTitulo}"/>
+                                </p:commandButton>
+                            </p:toolbarGroup>
+                        </p:toolbar>
+                        <p:dataTable id="avances" value="#{controladorAvanceEvento.listarAvanceEvento()}" var="avances" widgetVar="tablaAvances" class="table table-hover"
+                                     rows ="8" 
+                                     paginatorPosition="bottom"
+                                     paginator="true"
+                                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     currentPageReportTemplate="{startRecord}-{endRecord} #{lang.lblDe} {totalRecords} #{lang.lblAvances}"
+                                     rowsPerPageTemplate="8,16,32"
+                                     emptyMessage="#{lang.lblMensajeVacio}">
+                            <f:facet name="header">
+                                <span class="filter-container ui-input-icon-left">
+                                    <i class="pi pi-search"/>
+                                    <p:inputText id="globalFilter" onkeyup="PF('tablaAvances').filter()" placeholder="#{lang.lblBuscar}"/>
+                                </span>
+                            </f:facet>
+                            <p:column headerText="#{lang.lblNombreCompletoUsuario}" sortBy="#{avances.idAsignacionEmpleado.idEmpleado.numeroIdentificacion.nombres} #{avances.idAsignacionEmpleado.idEmpleado.numeroIdentificacion.apellidos}" filterBy="#{avances.idAsignacionEmpleado.idEmpleado.numeroIdentificacion.nombres} #{avances.idAsignacionEmpleado.idEmpleado.numeroIdentificacion.apellidos}" filterStyle="display:none" style="width: 23%;">
+                                <h:outputText value="#{avances.idAsignacionEmpleado.idEmpleado.numeroIdentificacion.nombres} #{avances.idAsignacionEmpleado.idEmpleado.numeroIdentificacion.apellidos}"/>
+                            </p:column>
+                            <p:column headerText="#{lang.lblTipoEmpleadoAvance}" sortBy="#{avances.idAsignacionEmpleado.idEmpleado.idTipoEmpleado.tipoEmpleado}" filterBy="#{avances.idAsignacionEmpleado.idEmpleado.idTipoEmpleado.tipoEmpleado}" filterStyle="display:none" style="width: 23%;">
+                                <h:outputText value="#{avances.idAsignacionEmpleado.idEmpleado.idTipoEmpleado.tipoEmpleado}"/>
+                            </p:column>
+                            <p:column headerText="#{lang.lblNombreEvento}" sortBy="#{avances.idAsignacionEmpleado.idOrdenPrestacionServicio.nombreEvento}" filterBy="#{avances.idAsignacionEmpleado.idEmpleado.idTipoEmpleado.tipoEmpleado}" filterStyle="display:none" style="width: 23%;">
+                                <h:outputText value="#{avances.idAsignacionEmpleado.idOrdenPrestacionServicio.nombreEvento}"/>
+                            </p:column>
+                            <p:column headerText="#{lang.lblFechaRegistroAvance}" sortBy="#{avances.fechaRegistro}" filterBy="#{avances.fechaRegistro}" filterStyle="display:none" style="width: 25%;">
+                                <h:outputText value="#{avances.fechaRegistro}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                </h:outputText>
+                            </p:column>
+                            <p:column headerText="#{lang.lblAcciones}" exportable="false" style="width: 23%;">
+                                <p:commandButton  icon="pi pi-eye" title="#{lang.lblConsultar}"
+                                                  action="#{controladorAvanceEvento.consultarAvances(avances)}"
+                                                  styleClass="edit-button rounded-button ui-button-info">
+                                </p:commandButton>
+                            </p:column>
+                        </p:dataTable>
+                    </div>
+                </h:form>
+            </div>
+            <div class="col-md-1"/>
+        </div>
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="template/Layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <ui:define name="titulo">#{lang.lblServicios}</ui:define>
+    <ui:define name="servicios">
+        <h:commandLink class="nav-link active" value="#{lang.lblServicios}" action="ServiciosIndex?faces-redirect=true"/>
+    </ui:define>
+    <ui:define name="body">
+        <body class="parallax-completo">
+            <div class="container-fluid">
+                <div class="row margin-section">
+                    <div class="col-md-12 text-center">
+                        <h1 class="mt-5 mb-4">#{lang.lblServicios}</h1>
+                        <p>#{lang.lblDescServicios}</p>
+                    </div>
+                </div>
+                <div class="container mt-3">
+                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3">
+                        <c:forEach var="servicio" items="#{controladorServicio.listarServicio()}">
+                            <div class="col-md-4 mb-5">
+                                <div class="card h-100">
+                                    <div class="card-header text-center">
+                                        <h:outputLabel class="font-weight-bold mt-2" value="#{servicio.nombreServicio}"/>
+                                    </div>
+                                    <img src="#{servicio.rutaImagen}" height="250"/>
+                                    <div class="card-body text-justify">
+                                        <h:outputLabel class="card-text" value="#{servicio.descripcionServicio}"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </c:forEach>
+                    </div>
+                </div>
+            </div>
+        </body>
+        <script src="js/jquery-3.6.0.min.js"></script>
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="../template/dashboardEmpleado.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="head"><title>#{lang.lblRegistrarAvance}</title></ui:define>
+    <ui:define name="preRender">
+        <f:event type="preRenderView" listener="#{controladorAvanceEvento.limpiarAvanceEvento()}" />
+    </ui:define>
+    <ui:define name="migas">
+        <li class="breadcrumb-item bread"><h:commandLink action="EventosEmpleado?faces-redirect=true" value="#{lang.lblConsultCampañas}"/></li>
+        <li class="breadcrumb-item active">#{lang.lblRegistrarAvance}</li>
+    </ui:define>
+    <ui:define name="body">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-2"/>
+                <div class="col-md-8">
+                    <h:form id="form" class="formulario">
+                        <p:growl id="msj" showDetail="true" life="3000"/>
+                        <div class="text-center">
+                            <h:outputLabel value="#{lang.lblRegistrarAvance}" class="h2 my-4"/>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-1"/>
+                            <div class="col-md-10 form-group">
+                                <p:outputLabel value="#{lang.lblNombreEvento}" for="nombreEvento"/>
+                                <p:inputText id="nombreEvento" value="#{controladorAvanceEvento.asignacionEmpleado.idOrdenPrestacionServicio.nombreEvento}" class="form-control" readonly="true"/>                            
+                            </div>
+                            <div class="col-md-1"/>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-1"/>
+                            <div class="col-md-10 form-group">
+                                <p:outputLabel value="#{lang.lblDescripcionOrdenPrestar}" for="descripcionOrden"/>
+                                <p:inputTextarea id="descripcionOrden" value="#{controladorAvanceEvento.asignacionEmpleado.descripcionAsignacion}" class="form-control" rows="5" readonly="true"/>                            
+                            </div>
+                            <div class="col-md-1"/>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-1"/>
+                            <div class="col-md-10 form-group">
+                                <p:outputLabel value="#{lang.lblDescAvance}" for="descripcionAvance"/>
+                                <p:inputTextarea id="descripcionAvance" value="#{controladorAvanceEvento.avanceEvento.descripcionAvance}" class="form-control" maxlength="300"
+                                                 placeholder="#{lang.txtDescCampaña}" requiredMessage="#{lang.txtRDescripAvance}" rows="4">
+                                    <f:validateRegex pattern="^[\w]+[Á-ÿ\u00f1\u00d1\s\w\,\.\-\:\;]+$"/>
+                                </p:inputTextarea>
+                            </div>
+                            <div class="col-md-1"/>
+                        </div>
+                        <div class="text-center">
+                            <p:commandButton value="#{lang.lblBtnRegistro}" icon="pi pi-check" actionListener="#{controladorAvanceEvento.registrarAvanceEvento()}"
+                                             update="form" class="btn btn-info mt-3 mb-4"/>
+                        </div>
+                    </h:form>
+                </div>
+                <div class="col-md-2"/>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

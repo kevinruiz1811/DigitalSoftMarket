@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="template/Layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <ui:define name="titulo">#{lang.lblPlanes}</ui:define>
+    <ui:define name="planes">
+        <h:commandLink class="nav-link active" value="#{lang.lblPlanes}" action="PlanesIndex?faces-redirect=true"/>
+    </ui:define>
+    <ui:define name="body">
+        <body class="parallax-completo">
+            <div class="container-fluid">
+                <div class="row margin-section">
+                    <div class="col-md-1"/>
+                    <div class="col-md-10">
+                        <h1 class="text-center mt-5 mb-4">#{lang.lblNuestrosPlanes}</h1>
+                        <p class="text-justify">#{lang.lblDescNuestrosPlanes}</p>
+                    </div>
+                    <div class="col-md-1"/>
+                </div>
+                <h:form>
+                    <div class="container mt-3">
+                        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3">
+                            <c:forEach var="plan" items="#{controladorPlan.listarPlan()}">
+                                <div class="col-md-4 mb-5">
+                                    <div class="card h-100">
+                                        <div class="card-header text-center">
+                                            <h:outputLabel class="font-weight-bold mt-2" value="#{plan.nombrePlan}"/>
+                                        </div>
+                                        <img src="#{plan.rutaImagen}" height="200"/>
+                                        <div class="card-body">
+                                            <div class="card-title text-center">
+                                                <h:outputLabel class="h4" value="#{plan.precioPlan}">
+                                                    <f:convertNumber type="currency" currencySymbol="$"/>
+                                                </h:outputLabel>
+                                            </div>
+                                            <h:outputLabel value="#{plan.contenidoPrincipalPlan}"/>
+                                            <div class="card-footer text-center">
+                                                <h:outputLabel value="#{p.contenidoPrincipalPlan}"/>
+                                                <p:commandButton value="#{lang.lblIrCotizar}"  action="login?faces-redirect=true" 
+                                                                 class="btn btn-lg" icon="pi pi-shopping-cart"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </c:forEach>
+                        </div>
+                    </div>
+                </h:form>
+            </div>
+        </body>
+        <script src="js/jquery-3.6.0.min.js"></script>       
+    </ui:define>
+</ui:composition>

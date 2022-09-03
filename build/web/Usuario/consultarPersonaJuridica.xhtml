@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="../template/dashboardAdmin.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="head"><title>#{lang.lblCliente}</title></ui:define>
+    <ui:define name="migas">
+        <li class="breadcrumb-item bread"><h:commandLink action="usuario?faces-redirect=true" value="#{lang.lblUsuarios}"/></li>
+        <li class="breadcrumb-item active">#{lang.lblCliente}</li>
+    </ui:define>
+    <ui:define name="body">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-2"/>
+                <div class="col-md-8">
+                    <h:form class="formulario">
+                        <div class="text-center">
+                            <h:outputLabel value="#{lang.lblCliente}" class="h2 my-4"/>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-1"/>
+                            <div class="col-md-5 form-group">
+                                <p:outputLabel value="#{lang.lblNumId}" for="numId"/>
+                                <p:inputText id="numId" value="#{controladorUsuario.usuario.numeroIdentificacion}" class="form-control" title="#{lang.lblNumId}" readonly="true"/>
+                            </div>
+                            <div class="col-md-5 form-group">
+                                <p:outputLabel value="#{lang.lblTipoId}" for="tipoId"/>
+                                <p:selectOneMenu id="tipoId" value="#{controladorUsuario.tipoIdentificacion.idTipoIdentificacion}" class="form-control" title="#{lang.lblTipoId}" disabled="true">
+                                    <f:selectItems value="#{controladorTipoIdentificacion.listarTipoIdentificacion()}" var="tipo" itemValue="#{tipo.idTipoIdentificacion}" itemLabel="#{tipo.tipoIdentificacion}"/>
+                                </p:selectOneMenu>
+                            </div>
+                            <div class="col-md-1"/>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-1"/>
+                            <div class="col-md-5 form-group">
+                                <p:outputLabel value="#{lang.lblNombre}" for="nombres"/>
+                                <p:inputText id="nombres" value="#{controladorUsuario.usuario.nombres}" class="form-control" title="#{lang.lblNombre}" readonly="true"/>
+                            </div>
+                            <div class="col-md-5 form-group">
+                                <p:outputLabel value="#{lang.lblApellido}" for="apellidos"/>
+                                <p:inputText id="apellidos" value="#{controladorUsuario.usuario.apellidos}" class="form-control" title="#{lang.lblApellido}" readonly="true"/>
+                            </div>
+                            <div class="col-md-1"/>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-1"/>
+                            <div class="col-md-5 form-group">
+                                <p:outputLabel value="#{lang.lblCorreo}" for="correo"/>
+                                <p:inputText id="correo" value="#{controladorUsuario.usuario.correoElectronico}" class="form-control" title="#{lang.lblCorreo}" readonly="true"/>
+                            </div>
+                            <div class="col-md-5 form-group">
+                                <p:outputLabel value="#{lang.lblNumeroCelular}" for="numCelular"/>
+                                <p:inputText id="numCelular" value="#{controladorUsuario.usuario.numeroCelular}" class="form-control" title="#{lang.lblNumeroCelular}" readonly="true"/>
+                            </div>
+                            <div class="col-md-1"/>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-1"/>
+                            <div class="col-md-5 form-group">
+                                <p:outputLabel value="#{lang.lblDepartamento}" for="departamento"/>
+                                <p:selectOneMenu id="departamento" value="#{controladorUsuario.departamento.idDepartamento}" class="form-control" title="#{lang.lblDepartamento}" disabled="true">
+                                    <f:selectItems value="#{controladorDepartamento.listarDepartamento()}" var="depto" itemValue="#{depto.idDepartamento}" itemLabel="#{depto.departamento}"/>
+                                </p:selectOneMenu>
+                            </div>
+                            <div class="col-md-5 form-group">
+                                <p:outputLabel value="#{lang.lblEstadoUsuario}" for="estado"/>
+                                <p:selectOneMenu id="estado" value="#{controladorUsuario.estadoUsuario.idEstadoUsuario}" class="form-control" title="#{lang.lblEstadoUsuario}" disabled="true">
+                                    <f:selectItems value="#{controladorEstadoUsuario.listarEstadoUsuario()}" var="est" itemValue="#{est.idEstadoUsuario}" itemLabel="#{est.estadoUsuario}"/>
+                                </p:selectOneMenu>
+                            </div>
+                            <div class="col-md-1"/>
+                        </div>         
+                        <div class="form-row">
+                            <div class="col-md-1"/>
+                            <div class="col-md-5 form-group">
+                                <p:outputLabel value="#{lang.lblTipoCliente}" for="tipoCliente"/>
+                                <p:selectOneMenu id="tipoCliente" value="#{controladorUsuario.tipoCliente.idTipoCliente}" class="form-control" title="#{lang.lblTipoCliente}" disabled="true">
+                                    <f:selectItems value="#{controladorTipoCliente.listarTipoCliente()}" var="cliente" itemValue="#{cliente.idTipoCliente}" itemLabel="#{cliente.tipoCliente}"/>
+                                </p:selectOneMenu>
+                            </div>
+                            <div class="col-md-5 form-group">
+                                <p:outputLabel value="#{lang.lblActividadEconomica}" for="actividad"/>
+                                <p:inputText id="actividad" value="#{controladorUsuario.cliente.actividadEconomica}" class="form-control" title="#{lang.lblActividadEconomica}" readonly="true"/>
+                            </div>
+                            <div class="col-md-1"/>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-1"/>
+                            <div class="col-md-5 form-group">
+                                <p:outputLabel value="#{lang.lblNit}" for="nit"/>
+                                <p:inputMask id="nit" value="#{controladorUsuario.cliente.nit}" class="form-control" mask="999999999-9" validateMask="true" title="#{lang.lblNit}" readonly="true"/>
+                            </div>
+                            <div class="col-md-5 form-group">
+                                <p:outputLabel value="#{lang.lblEmpresa}" for="empresa"/>
+                                <p:inputText id="empresa" value="#{controladorUsuario.cliente.nombreEmpresa}" class="form-control" title="#{lang.lblEmpresa}" readonly="true"/>
+                            </div>
+                            <div class="col-md-1"/>
+                        </div>
+                        <div class="text-center">
+                            <p:commandButton action="usuario?faces-redirect=true" value="#{lang.lblVoler}" icon="pi pi-arrow-left"
+                                             class="btn btn-primary mt-3 mb-4"/>
+                        </div>
+                    </h:form>
+                </div>
+                <div class="col-md-2"/>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

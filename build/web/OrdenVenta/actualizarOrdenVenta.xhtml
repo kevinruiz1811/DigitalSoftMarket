@@ -1,0 +1,122 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="../template/dashboardAdmin.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <ui:define name="head"><title>#{lang.lblActualizarOrdenVenta}</title></ui:define>
+    <ui:define name="migas">
+        <li class="breadcrumb-item bread"><h:commandLink action="ordenVenta?faces-redirect=true" value="${lang.lblOrdenesVenta}"/></li>
+        <li class="breadcrumb-item active">#{lang.lblActualizarOrdenVenta}</li>
+    </ui:define>
+    <ui:define name="body">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-2"/>
+                <div class="col-md-8">
+                    <h:form class="formulario">
+                        <div class="text-center">
+                            <h:outputLabel value="#{lang.lblDatosVenta}" class="h2 my-4"/>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-1"/>
+                            <div class="col-md-5 form-group">
+                                <p:outputLabel value="#{lang.lblNumId}" for="numId"/>
+                                <p:inputText id="numId" value="#{controladorOrdenVenta.usuario.numeroIdentificacion}" class="form-control" readonly="true"/>
+                            </div>
+                            <div class="col-md-5 form-group">
+                                <p:outputLabel value="#{lang.lblNombreCompletoUsuario}" for="nombres"/>
+                                <p:inputText id="nombres" value="#{controladorOrdenVenta.usuario.nombres} #{controladorOrdenVenta.usuario.apellidos}" class="form-control" readonly="true"/>
+                            </div>
+                            <div class="col-md-1"/>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-1"/>
+                            <div class="col-md-5 form-group">
+                                <p:outputLabel value="#{lang.lblFechaVenta}" for="venta"/>
+                                <p:datePicker id="venta" value="#{controladorOrdenVenta.detalleVenta.fechaVenta}" locale="es" disabled="true"/>       
+                            </div>
+                            <div class="col-md-5 form-group">
+                                <p:outputLabel value="#{lang.lblNumeroContrato}" for="numContrato"/>
+                                <p:inputText id="numContrato" value="#{controladorOrdenVenta.venta.numeroContrato}" class="form-control" readonly="true"/>
+                            </div>
+                            <div class="col-md-1"/>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-1"/>
+                            <div class="col-md-5 form-group">
+                                <p:outputLabel value="#{lang.lblFechaInicial}" for="inicio"/>
+                                <p:datePicker id="inicio" value="#{controladorOrdenVenta.detalleVenta.fechaInicialPrestacionServicios}" locale="es" disabled="true"/>
+                            </div>
+                            <div class="col-md-5 form-group">
+                                <p:outputLabel value="#{lang.lblFechaFinal}" for="final"/>
+                                <p:datePicker id="final" value="#{controladorOrdenVenta.detalleVenta.fechaFinalPrestacionServicios}" locale="es" disabled="true"/>
+                            </div>
+                            <div class="col-md-1"/>
+                        </div>
+                        <div class="form-row pb-4">
+                            <div class="col-md-1"/>
+                            <div class="col-md-5 form-group">
+                                <p:outputLabel value="#{lang.lblMontoCobroMensual}" for="cobro"/>
+                                <p:inputNumber id="cobro" value="#{controladorOrdenVenta.detalleVenta.montoCobroMensual}" class="inputNumber" symbol="$" thousandSeparator="," decimalSeparator="." readonly="true"/>
+                            </div>
+                            <div class="col-md-6"/>
+                        </div>
+                    </h:form>
+                </div>
+                <div class="col-md-2"/>
+            </div>
+            <div class="row my-4">
+                <div class="col-md-2"/>
+                <div class="col-md-8">
+                    <h:form class="formulario">
+                        <p:growl id="datos" showDetail="true" life="3000"/>
+                        <div class="text-center">
+                            <h:outputLabel value="#{lang.lblActualizarOrdenVenta}" class="h2 my-4"/>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-1"/>
+                            <div class="col-md-5 form-group">
+                                <p:outputLabel value="#{lang.lblFechaPago}" for="pago"/>
+                                <p:datePicker id="pago" value="#{controladorOrdenVenta.ordenVenta.fechaPago}" locale="es" monthNavigator="true"
+                                              placeholder="#{lang.txtFechaPago}" required="true" requiredMessage="#{lang.lblFechaPagoRequerido}"/>
+                            </div>
+                            <div class="col-md-5 form-group">
+                                <p:outputLabel value="#{lang.lblNumeroCuota}" for="cuota"/>
+                                <p:inputNumber id="cuota" value="#{controladorOrdenVenta.ordenVenta.numeroCuota}" class="inputNumber" maxValue="99" decimalPlaces="0"
+                                               placeholder="#{lang.txtNumeroCuota}" required="true" requiredMessage="#{lang.lblNumeroCuotaRequerido}"/>
+                            </div>
+                            <div class="col-md-1"/>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-1"/>
+                            <div class="col-md-5 form-group">
+                                <p:outputLabel value="#{lang.lblEmpresa}" for="empresa"/>
+                                <p:inputText id="empresa" value="#{controladorOrdenVenta.ordenVenta.nombreEmpresaConsignar}" class="form-control" maxlength="20"
+                                             placeholder="#{lang.txtNombreEmpresaConsignar}" required="true" requiredMessage="#{lang.lblNombreEmpresaConsignarRequerido}">
+                                    <f:validator validatorId="validadorEmpresa" for="empresa"/>
+                                </p:inputText>
+                            </div>
+                            <div class="col-md-5 form-group">
+                                <p:outputLabel value="#{lang.lblNumeroCuentaBancaria}" for="numBanco"/>
+                                <p:inputText id="numBanco" value="#{controladorOrdenVenta.ordenVenta.numeroCuentaBancariaConsignar}" class="form-control" maxlength="20"
+                                             placeholder="#{lang.txtNumeroCuentaBancaria}" required="true" requiredMessage="#{lang.lblNumeroCuentaBancariaRequerido}">
+                                    <f:validator validatorId="validadorNumeroCuentaBancaria" for="numBanco"/>
+                                </p:inputText>
+                            </div>
+                            <div class="col-md-1"/>
+                        </div>
+                        <div class="text-center">
+                            <p:commandButton value="#{lang.lblBtnActualizar}" icon="pi pi-spinner" actionListener="#{controladorOrdenVenta.editarOrdenVenta()}"
+                                             update="datos" class="btn btn-primary mt-3 mb-4"/>
+                        </div>
+                    </h:form>
+                </div>
+                <div class="col-md-2"/>
+            </div>
+        </div>
+        <script src="../js/calendarioEspanol.js"></script>
+</ui:define>
+</ui:composition>

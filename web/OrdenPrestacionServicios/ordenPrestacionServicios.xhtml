@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="../template/dashboardAdmin.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <ui:define name="head"><title>#{lang.lblPrestacion}</title></ui:define>
+    <ui:define name="migas">
+        <li class="breadcrumb-item active">#{lang.lblPrestacion}</li>
+    </ui:define>
+    <ui:define name="encabezado">
+        <h:form class="enunciado">
+            <h:outputLabel class="ml-3 h1" value="#{lang.lblPrestacion}"/>
+            <p class="text-justify pt-3">#{lang.lblAquiConsultar} #{lang.lblVerificarOrdenPre} #{lang.lblAdemasOrdenPre}</p>
+            <h:commandLink action="preRegistroOrdenPrestacion?faces-redirect=true">
+                <button class="btn-lg btn-primary text-white font m-2" type="button">
+                    <i class="fas fa-envelope-open-text mr-2"></i>#{lang.lblRegistrarOrdenPrestacion}
+                </button>
+            </h:commandLink>
+        </h:form>
+    </ui:define>
+    <ui:define name="body">
+        <hr/>
+        <div class="row">
+            <div class="col-md-1"/>
+            <div class="col-md-10 my-4">
+                <h:form id="form">
+                    <p:toolbar>
+                        <p:toolbarGroup>
+                            <p:commandButton value="#{lang.lblExportar}" icon="pi pi-upload" styleClass="ui-button-danger" ajax="false">
+                                <p:dataExporter type="xls" target="ordenPrestacion" fileName="#{lang.lblOrdenPrestacionServicio}"/>
+                            </p:commandButton>
+                        </p:toolbarGroup>
+                    </p:toolbar>
+                    <p:dataTable id="ordenPrestacion" value="#{controladorOrdenPrestacionServicio.listarOrdenPrestacionServicio()}" var="ordenPrestacion" widgetVar="tablaOrdenPrestacion" class="table table-hover"
+                                 rows ="8" 
+                                 paginatorPosition="bottom"
+                                 paginator="true"
+                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 currentPageReportTemplate="{startRecord}-{endRecord} #{lang.lblDe} {totalRecords} #{lang.lblPrestacion}"
+                                 rowsPerPageTemplate="8,16,32"
+                                 emptyMessage="#{lang.lblMensajeVacio}">
+                        <p:growl id="message" showDetail="true"/>
+                        <f:facet name="header">
+                            <span class="filter-container ui-input-icon-left">
+                                <i class="pi pi-search"/>
+                                <p:inputText id="globalFilter" onkeyup="PF('tablaOrdenPrestacion').filter()" placeholder="#{lang.lblBuscar}"/>
+                            </span>
+                        </f:facet>
+                        <p:column headerText="#{lang.lblFechaRegistroOrdenPrestacion}" sortBy="#{ordenPrestacion.fechaRegistro}" filterBy="#{ordenPrestacion.fechaRegistro}" filterStyle="display:none">
+                            <h:outputText value="#{ordenPrestacion.fechaRegistro}">
+                                <f:convertDateTime pattern="yyyy/MM/dd"/>
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="#{lang.lblNumeroContrato}" sortBy="#{ordenPrestacion.numeroContrato.numeroContrato}" filterBy="#{ordenPrestacion.numeroContrato}" filterStyle="display:none">
+                            <h:outputText value="#{ordenPrestacion.numeroContrato.numeroContrato}"/>
+                        </p:column>
+                        <p:column headerText="#{lang.lblNombreEvento}" sortBy="#{ordenPrestacion.nombreEvento}" filterBy="#{ordenPrestacion.nombreEvento}" filterStyle="display:none">
+                            <h:outputText value="#{ordenPrestacion.nombreEvento}"/>
+                        </p:column>
+                        <p:column headerText="#{lang.lblEstadoOrdenPrest}" sortBy="#{ordenPrestacion.idEstadoOrdenPrestacionServicio.estadoOrdenPrestacionServicio}" filterBy="#{ordenPrestacion.idEstadoOrdenPrestacionServicio.estadoOrdenPrestacionServicio}" filterStyle="display:none">
+                            <h:outputText value="#{ordenPrestacion.idEstadoOrdenPrestacionServicio.estadoOrdenPrestacionServicio}"/>
+                        </p:column>
+                        <p:column headerText="#{lang.lblAcciones}" class="text-center" exportable="false">
+                            <p:commandButton icon="pi pi-pencil" title="#{lang.lblEditar}"
+                                             action="#{controladorOrdenPrestacionServicio.preEditarOrdenPrestacionServicio(ordenPrestacion)}"
+                                             styleClass="edit-button rounded-button ui-button-warning mr-2">
+                            </p:commandButton>
+                            <p:commandButton icon="pi pi-ban" action="#{controladorOrdenPrestacionServicio.inactivarOrdenPrestacionServicio(ordenPrestacion)}" update="message" styleClass="edit-button rounded-button ui-button-danger" disabled="#{controladorOrdenPrestacionServicio.deshabilitarInactivarOrden(ordenPrestacion)}">
+                                <p:confirm type="popup" header="#{lang.lblDialogTitulo}" message="#{lang.lblConfirmacionOrdenPre}" icon="pi pi-exclamation-triangle"/>
+                            </p:commandButton>
+                            <p:confirmPopup global="true">
+                                <p:commandButton value="#{lang.lblNo}" type="button" styleClass="ui-confirm-popup-no ui-button-flat"/>
+                                <p:commandButton value="#{lang.lblSi}" type="button" styleClass="ui-confirm-popup-yes" />
+                            </p:confirmPopup>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </div>
+            <div class="col-md-1"/>
+        </div>
+    </ui:define>
+</ui:composition>

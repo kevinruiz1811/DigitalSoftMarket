@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head lang="es">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta charset="UTF-8"/>
+        <link rel="stylesheet" href="css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="css/estilos.css"/>
+        <link rel="stylesheet" href="css/index.css"/>
+        <link rel="shortcut icon" href="imagenes/favicon.png" type="image/x-icon"/>
+        <title><ui:insert name="titulo">Digital Soft Market</ui:insert></title>
+    </h:head>
+    <h:body>
+        <f:view locale="#{controladorLenguaje.lenguajeSeleccionado}">
+            <h:form>
+                <nav class="navbar navbar-expand-lg fixed-top">
+                    <h:commandLink class="navbar-brand ml-4" action="index?faces-redirect=true">
+                        <img src="imagenes/Logo.png" class="img-fluid" width="100" height="40"/>
+                    </h:commandLink>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="pi pi-align-justify text-white"></span>
+                    </button>
+                    <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+                        <ul class="navbar-nav nav nav-tabs text-center mr-4">
+                            <li class="nav-item">
+                                <ui:insert name="inicio">
+                                    <h:commandLink class="nav-link" value="#{lang.lblInicio}" action="index?faces-redirect=true"/>
+                                </ui:insert>
+                            </li>
+                            <li class="nav-item">
+                                <ui:insert name="servicios">
+                                    <h:commandLink class="nav-link" value="#{lang.lblServicios}" action="ServiciosIndex?faces-redirect=true"/>
+                                </ui:insert>
+                            </li>
+                            <li class="nav-item">
+                                <ui:insert name="planes">
+                                    <h:commandLink class="nav-link" value="#{lang.lblPlanes}" action="PlanesIndex?faces-redirect=true"/>
+                                </ui:insert>
+                            </li>
+                            <li class="nav-item">
+                                <ui:insert name="contactanos">
+                                    <h:commandLink class="nav-link" value="#{lang.lblContactanos}" action="contactanos?faces-redirect=true"/>
+                                </ui:insert>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <ui:insert name="opciones">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        #{lang.lblIngreso}
+                                    </a>
+                                </ui:insert>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <h:commandLink class="dropdown-item" value="#{lang.lblRegistro}" action="preRegistro?faces-redirect=true"/>
+                                    <h:commandLink class="dropdown-item" value="#{lang.lblInicioSesion}" action="login?faces-redirect=true"/>
+                                </div>
+                            </li>
+                            <li class="mt-2 ml-2">
+                                <c:if test="#{controladorLenguaje.lenguajeSeleccionado==controladorLenguaje.espanol}">
+                                    <h:commandLink action="#{controladorLenguaje.cambiarIdioma('en')}">
+                                        <h:graphicImage url="imagenes/languages/en.png" width="25" title="#{lang.lblLenguaje}"/>
+                                    </h:commandLink>
+                                </c:if>
+                                <c:if test="#{controladorLenguaje.lenguajeSeleccionado==controladorLenguaje.ingles}">
+                                    <h:commandLink action="#{controladorLenguaje.cambiarIdioma('es')}">
+                                        <h:graphicImage url="imagenes/languages/es.png" width="25" title="#{lang.lblLenguaje}"/>
+                                    </h:commandLink>
+                                </c:if>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </h:form>
+            <ui:insert name="body"/>
+        </f:view>
+        <ui:insert name="footer"/>
+        <script src="js/bootstrap.bundle.min.js"></script>
+    </h:body>
+</html>

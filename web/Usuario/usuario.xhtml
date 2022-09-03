@@ -1,0 +1,96 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="../template/dashboardAdmin.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <ui:define name="head"><title>#{lang.lblUsuarios}</title></ui:define>
+    <ui:define name="preRender">
+        <f:event type="preRenderView" listener="#{controladorUsuario.limpiarTodo()}"/>
+    </ui:define>
+    <ui:define name="migas">
+        <li class="breadcrumb-item active">#{lang.lblUsuarios}</li>
+    </ui:define>
+    <ui:define name="encabezado">
+        <h:form class="enunciado">
+            <h:outputLabel class="ml-3 h1" value="#{lang.lblConsultarUsuario}"/>
+            <p class="text-justify pt-3">#{lang.lblEnunciadoUsuario}</p>
+            <p:splitButton value="#{lang.lblRegistrarUsuario}" icon="pi pi-user" styleClass="ui-button-info my-2 mx-3">
+                <p:menuitem value="#{lang.lblAdministrador}" action="registrarAdministrador?faces-redirect=true"/>
+                <p:menuitem value="#{lang.lblCliente}" action="preRegistroCliente?faces-redirect=true"/>
+                <p:menuitem value="#{lang.lblEmpleado}" action="preRegistroEmpleado?faces-redirect=true"/>
+            </p:splitButton>
+        </h:form>
+    </ui:define>
+    <ui:define name="body">
+        <hr/>
+        <div class="row">
+            <div class="col-md-1"/>
+            <div class="col-md-10 my-4">         
+                <h:form id="form">
+                    <p:growl id="message" showDetail="true"/>
+                    <p:toolbar>
+                        <p:toolbarGroup>
+                            <p:commandButton value="#{lang.lblExportar}" icon="pi pi-upload" styleClass="ui-button-danger" ajax="false">
+                                <p:dataExporter type="xls" target="datos" fileName="#{lang.lblUsuarios}"/>
+                            </p:commandButton>
+                        </p:toolbarGroup>
+                    </p:toolbar>
+                    <p:dataTable id="datos" value="#{controladorUsuario.listarUsuarios()}" var="user" widgetVar="tableUser" class="table table-hover"
+                                 rows ="8" 
+                                 paginatorPosition="bottom"
+                                 paginator="true"
+                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 currentPageReportTemplate="{startRecord}-{endRecord} #{lang.lblDe} {totalRecords} #{lang.lblUsuarios}"
+                                 rowsPerPageTemplate="8,16,32" filterBy="#{controladorUsuario.buscarUsuario}"
+                                 emptyMessage="#{lang.lblMensajeVacio}">
+                        <p:growl id="message" showDetail="true"/>
+                        <f:facet name="header">
+                            <span class="filter-container ui-input-icon-left">
+                                <i class="pi pi-search"/>
+                                <p:inputText id="globalFilter" onkeyup="PF('tableUser').filter()" placeholder="#{lang.lblBuscar}"/>
+                            </span>
+                        </f:facet>
+                        <p:column headerText="#{lang.lblNombreCompletoUsuario}" sortBy="#{user.nombres}" filterBy="#{user.nombres} #{user.apellidos}" filterStyle="display:none">
+                            <h:outputText value="#{user.nombres} #{user.apellidos}"/>
+                        </p:column>
+                        <p:column headerText="#{lang.lblDepartamento}" sortBy="#{user.idDepartamento.departamento}" filterBy="#{user.idDepartamento.departamento}" filterStyle="display:none">
+                            <h:outputText value="#{user.idDepartamento.departamento}"/>
+                        </p:column>
+                        <p:column headerText="#{lang.lblCorreoUsuario}." sortBy="#{user.correoElectronico}" filterBy="#{user.correoElectronico}" filterStyle="display:none">
+                            <h:outputText value="#{user.correoElectronico}"/>
+                        </p:column>
+                        <p:column headerText="#{lang.lblRol}" sortBy="#{user.idRol.rol}" filterBy="#{user.idRol.rol}" filterStyle="display:none">
+                            <h:outputText value="#{user.idRol.rol}"/>
+                        </p:column>  
+                        <p:column headerText="#{lang.lblEstadoUsuarioDatatable}" sortBy="#{user.idEstadoUsuario.estadoUsuario}" filterBy="#{user.idEstadoUsuario.estadoUsuario}" filterStyle="display:none">
+                            <h:outputText value="#{user.idEstadoUsuario.estadoUsuario}"/>
+                        </p:column>
+                        <p:column headerText="#{lang.lblAcciones}" exportable="false">
+                            <p:commandButton  icon="pi pi-eye"
+                                              action="#{controladorUsuario.preConsultarUsuario(user)}"
+                                              styleClass="edit-button rounded-button ui-button-info mr-2"
+                                              title="#{lang.lblConsultar}">
+                            </p:commandButton>
+                            <p:commandButton icon="pi pi-pencil"
+                                             action="#{controladorUsuario.preEditarUsuario(user)}"
+                                             styleClass="edit-button rounded-button ui-button-warning mr-2"
+                                             title="#{lang.lblEditar}">
+                            </p:commandButton>
+                            <p:commandButton icon="pi pi-ban" action="#{controladorUsuario.inactivarUsuario(user)}" update="message" styleClass="edit-button rounded-button ui-button-danger" title="#{lang.lblInactivar}" disabled="#{controladorUsuario.deshabilitarBoton(user)}">
+                                <p:confirm type="popup" header="#{lang.lblDialogTitulo}" message="#{lang.lblDialogContenido}" icon="pi pi-exclamation-triangle"/>
+                            </p:commandButton>
+                            <p:confirmPopup global="true">
+                                <p:commandButton value="#{lang.lblNo}" type="button" styleClass="ui-confirm-popup-no ui-button-flat"/>
+                                <p:commandButton value="#{lang.lblSi}" type="button" styleClass="ui-confirm-popup-yes" />
+                            </p:confirmPopup>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </div>
+            <div class="col-md-1"/>
+        </div>
+    </ui:define>
+</ui:composition>

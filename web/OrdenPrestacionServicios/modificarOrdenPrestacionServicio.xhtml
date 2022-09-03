@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="../template/dashboardAdmin.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <ui:define name="head"><title>#{lang.lblModificarOrdenPrestacion}</title></ui:define>
+    <ui:define name="migas">
+        <li class="breadcrumb-item bread" aria-current="page"> <h:commandLink action="ordenPrestacionServicios?faces-redirect=true" value="#{lang.lblOrdenPrestacionServicio}"/></li>
+        <li class="breadcrumb-item active" aria-current="page">#{lang.lblModificarOrdenPrestacion}</li>
+    </ui:define>
+    <ui:define name="body">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-2"/>
+                <div class="col-md-8">
+                    <h:form id="form" class="formulario">
+                        <div class="text-center">
+                            <h:outputLabel value="#{lang.lblModificarOrdenPrestacion}" class="h2 my-4"/>
+                        </div>
+                        <p:growl id="message" showDetail="true"/>
+                        <div class="form-row">
+                            <div class="col-md-2"/>
+                            <div class="col-md-8 form-group">
+                                <p:outputLabel value="#{lang.lblNombreEvento}" for="nombreCampaña"/>
+                                <p:inputText id="nombreCampaña" required="true" size="60" maxlength="30" requiredMessage="#{lang.txtRNombreEvento}" type="text" value="#{controladorOrdenPrestacionServicio.ordenPrestacionServicio.nombreEvento}" class="form-control">
+                                    <f:validateRegex pattern="^[\w]+[Á-ÿ\u00f1\u00d1\s\w\,\.\-\:\;]+$"/>
+                                </p:inputText>
+                            </div>
+                            <div class="col-md-2"/>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-2"/>
+                            <div class="col-md-8 form-group">
+                                <p:outputLabel value="#{lang.lblDescriEvento}" for="descripcionEvento"/>
+                                <p:inputTextarea id="descripcionEvento" required="true" value="#{controladorOrdenPrestacionServicio.ordenPrestacionServicio.descripcionEvento}" maxlength="300" requiredMessage="#{lang.txtRDescripEvento}" rows="5" cols="60" class="form-control">
+                                    <f:validateRegex pattern="^[\w]+[Á-ÿ\u00f1\u00d1\s\w\,\.\-\:\;]+$"/>
+                                </p:inputTextarea>
+                            </div>
+                            <div class="col-md-2"/>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <p:outputLabel value="#{lang.lblEstadoActualOrdenPre}"/>
+                                    <p:inputText size="30" maxlength="30" type="text" value="#{controladorOrdenPrestacionServicio.ordenPrestacionServicio.idEstadoOrdenPrestacionServicio.estadoOrdenPrestacionServicio}" readonly="true" class="form-control">
+                                        <f:validateLength maximum="50" minimum="2"/>
+                                    </p:inputText>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <p:outputLabel value="#{lang.lblEstadoOrdenPrest} " for="estadoOrden"/>
+                                    <p:selectOneMenu id="estadoOrden" value="#{controladorOrdenPrestacionServicio.estadoOrdenPrestacionServicio.idEstadoOrdenPrestacionServicio}" class="form-control" required="true">
+                                        <f:selectItems value="#{controladorEstadoOrdenPrestacionServicio.listarEstadoOrdenPrestacionServicio()}" var="est" itemValue="#{est.idEstadoOrdenPrestacionServicio}" itemLabel="#{est.estadoOrdenPrestacionServicio}"/>
+                                    </p:selectOneMenu>
+                                </div>
+                            </div>
+                            <div class="col-md-1"></div>
+                        </div>
+                        <div class="text-center">
+                            <p:commandButton value="#{lang.lblModificarOrdenPrestacion}" class="btn btn-primary mt-3 mb-4" 
+                                             actionListener="#{controladorOrdenPrestacionServicio.editarOrdenPrestacionServicio()}" icon="pi pi-check"/>
+                        </div>
+                    </h:form>
+                </div>
+                <div class="col-md-2"/>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

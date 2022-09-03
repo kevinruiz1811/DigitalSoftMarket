@@ -1,0 +1,149 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="../template/dashboardAdmin.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <ui:define name="head"><title>#{lang.lblActualizarPrensa}</title></ui:define>
+    <ui:define name="migas">
+        <li class="breadcrumb-item bread"><h:commandLink action="usuario?faces-redirect=true" value="#{lang.lblUsuarios}"/></li>
+        <li class="breadcrumb-item active">#{lang.lblActualizarPrensa}</li>
+    </ui:define>
+    <ui:define name="body">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-2"/>
+                <div class="col-md-8">
+                    <h:form class="formulario">
+                        <p:growl id="datos" showDetail="true" life="3000"/>
+                        <div class="text-center">
+                            <h:outputLabel value="#{lang.lblActualizarPrensa}" class="h2 my-4"/>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-1"/>
+                            <div class="col-md-5 form-group">
+                                <p:outputLabel value="#{lang.lblNumId}" for="numId"/>
+                                <p:inputText id="numId" value="#{controladorUsuario.usuario.numeroIdentificacion}" class="form-control" maxlength="10" title="#{lang.lblNumId}"
+                                             placeholder="#{lang.txtNumId}" required="true" requiredMessage="#{lang.lblNumIdRequerido}">
+                                    <f:validator validatorId="validadorNumeroIdentificacion" for="numId"/>
+                                </p:inputText>
+                            </div>
+                            <div class="col-md-5 form-group">
+                                <p:outputLabel value="#{lang.lblTipoId}" for="tipoId"/>
+                                <p:selectOneMenu id="tipoId" value="#{controladorUsuario.tipoIdentificacion.idTipoIdentificacion}" class="form-control" title="#{lang.lblTipoId}"
+                                                 required="true" requiredMessage="#{lang.lblTipoIdRequerido}">
+                                    <f:selectItem itemLabel="#{lang.txtSeleccion}" itemValue=""/>
+                                    <f:selectItems value="#{controladorTipoIdentificacion.listarTipoIdentificacion()}" var="tipo" itemValue="#{tipo.idTipoIdentificacion}" itemLabel="#{tipo.tipoIdentificacion}"/>
+                                </p:selectOneMenu>
+                            </div>
+                            <div class="col-md-1"/>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-1"/>
+                            <div class="col-md-5 form-group">
+                                <p:outputLabel value="#{lang.lblNombre}" for="nombres"/>
+                                <p:inputText id="nombres" value="#{controladorUsuario.usuario.nombres}" class="form-control" maxlength="30" title="#{lang.lblNombre}"
+                                             placeholder="#{lang.txtNombre}" required="true" requiredMessage="#{lang.lblNombreRequerido}">
+                                    <f:validator validatorId="validadorNombres" for="nombres"/>
+                                </p:inputText>
+                            </div>
+                            <div class="col-md-5 form-group">
+                                <p:outputLabel value="#{lang.lblApellido}" for="apellidos"/>
+                                <p:inputText id="apellidos" value="#{controladorUsuario.usuario.apellidos}" class="form-control" maxlength="30" title="#{lang.lblApellido}"
+                                             placeholder="#{lang.txtApellido}" required="true" requiredMessage="#{lang.lblApellidoRequerido}">
+                                    <f:validator validatorId="validadorApellidos" for="apellidos"/>
+                                </p:inputText>
+                            </div>
+                            <div class="col-md-1"/>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-1"/>
+                            <div class="col-md-5 form-group">
+                                <p:outputLabel value="#{lang.lblCorreo}" for="correo"/>
+                                <p:inputText id="correo" value="#{controladorUsuario.usuario.correoElectronico}" class="form-control"  maxlength="50" title="#{lang.lblCorreo}"
+                                             placeholder="#{lang.txtCorreo}" required="true" requiredMessage="#{lang.lblCorreoRequerido}">
+                                    <f:validator validatorId="validadorCorreoElectronico" for="correo"/>
+                                </p:inputText>
+                            </div>
+                            <div class="col-md-5 form-group">
+                                <p:outputLabel value="#{lang.lblNumeroCelular}" for="numCelular"/>
+                                <p:inputText id="numCelular" value="#{controladorUsuario.usuario.numeroCelular}" class="form-control" maxlength="10" title="#{lang.lblNumeroCelular}"
+                                             placeholder="#{lang.txtNumeroCelular}" required="true" requiredMessage="#{lang.lblNumeroCelularRequerido}">
+                                    <f:validator validatorId="validadorNumeroCelular" for="numCelular"/>
+                                </p:inputText>
+                            </div>
+                            <div class="col-md-1"/>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-1"/>
+                            <div class="col-md-5 form-group">
+                                <p:outputLabel value="#{lang.lblDepartamento}" for="departamento"/>
+                                <p:selectOneMenu id="departamento" value="#{controladorUsuario.departamento.idDepartamento}" class="form-control" title="#{lang.lblDepartamento}"
+                                                 required="true" requiredMessage="#{lang.lblDepartamentoRequerido}">
+                                    <f:selectItem itemLabel="#{lang.txtSeleccion}" itemValue=""/>
+                                    <f:selectItems value="#{controladorDepartamento.listarDepartamento()}" var="depto" itemValue="#{depto.idDepartamento}" itemLabel="#{depto.departamento}"/>
+                                </p:selectOneMenu>
+                            </div>
+                            <div class="col-md-5 form-group">
+                                <p:outputLabel value="#{lang.lblDireccion}" for="direccion"/>
+                                <p:inputText id="direccion" value="#{controladorUsuario.empleado.direccion}" class="form-control" maxlength="50" title="#{lang.lblDireccion}"
+                                             placeholder="#{lang.txtDireccion}">
+                                    <f:validator validatorId="validadorDireccion" for="direccion"/>
+                                </p:inputText>
+                            </div>
+                            <div class="col-md-1"/>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-1"/>
+                            <div class="col-md-5 form-group">
+                                <p:outputLabel value="#{lang.lblNombrePrensa}" for="prensa"/>
+                                <p:inputText id="prensa" value="#{controladorUsuario.prensa.nombrePrensa}" class="form-control" maxlength="50" title="#{lang.lblNombrePrensa}"
+                                             placeholder="#{lang.txtNombrePrensa}" required="true" requiredMessage="#{lang.lblNombrePrensaRequerido}">
+                                    <f:validator validatorId="validadorPrensa" for="prensa"/>
+                                </p:inputText>
+                            </div>    
+                            <div class="col-md-5 form-group">
+                                <p:outputLabel value="#{lang.lblTipoPrensa}" for="tipoPrensa"/>
+                                <p:selectOneMenu id="tipoPrensa" value="#{controladorUsuario.tipoPrensa.idTipoPrensa}" class="form-control" title="#{lang.lblTipoPrensa}"
+                                                 required="true" requiredMessage="#{lang.lblTipoPrensaRequerido}">
+                                    <f:selectItem itemLabel="#{lang.txtSeleccion}" itemValue=""/>
+                                    <f:selectItems value="#{controladorTipoPrensa.listarTipoPrensa()}" var="tipo" itemValue="#{tipo.idTipoPrensa}" itemLabel="#{tipo.tipoPrensa}"/>
+                                </p:selectOneMenu>
+                            </div>
+                            <div class="col-md-1"/>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-1"/>
+                            <div class="col-md-5 form-group">
+                                <p:outputLabel value="#{lang.lblEstadoUsuario}" for="estado"/>
+                                <p:selectOneMenu id="estado" value="#{controladorUsuario.estadoUsuario.idEstadoUsuario}" class="form-control" title="#{lang.lblEstadoUsuario}"
+                                                 required="true" requiredMessage="#{lang.lblEstadoUsuarioRequerido}">
+                                    <f:selectItems value="#{controladorEstadoUsuario.listarEstadoUsuario()}" var="est" itemValue="#{est.idEstadoUsuario}" itemLabel="#{est.estadoUsuario}"/>
+                                </p:selectOneMenu>
+                            </div>
+                            <div class="col-md-6"/>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-1"/>
+                            <div class="col-md-10 form-group">
+                                <p:outputLabel value="#{lang.lblMediosComunicacion}" for="mediosComunicacion"/>
+                                <p:inputTextarea id="mediosComunicacion" value="#{controladorUsuario.prensa.mediosComunicacion}" class="form-control" maxlength="100" title="#{lang.lblMediosComunicacion}"
+                                                 placeholder="#{lang.txtMediosComunicacion}" required="true" requiredMessage="#{lang.lblMediosComunicacionRequerido}">
+                                    <f:validator validatorId="validadorMediosComunicacion" for="mediosComunicacion"/> 
+                                </p:inputTextarea>
+                            </div>
+                            <div class="col-md-1"/>
+                        </div>
+                        <div class="text-center">
+                            <p:commandButton value="#{lang.lblBtnActualizar}" icon="pi pi-user" class="btn btn-primary mt-3 mb-4"
+                                             update="datos" actionListener="#{controladorUsuario.editarPrensa()}"/>
+                        </div>
+                    </h:form>
+                </div>
+                <div class="col-md-2"/>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

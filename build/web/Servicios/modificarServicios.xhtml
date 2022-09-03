@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="../template/dashboardAdmin.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <ui:define name="head"><title>#{lang.lblModificarServicio}</title></ui:define>
+    <ui:define name="migas">
+        <li class="breadcrumb-item bread"><h:commandLink action="servicios?faces-redirect=true" value="#{lang.lblServicios}"/></li>
+        <li class="breadcrumb-item active">#{lang.lblModificarServicio}</li>
+    </ui:define>
+    <ui:define name="body">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-3"/>
+                <div class="col-md-6">                      
+                    <h:form id="form" class="formulario" enctype="multipart/form-data">
+                        <p:growl id="msj" showDetail="true" life="3000"/>
+                        <div class="text-center">
+                            <h:outputLabel value="#{lang.lblModificarServicio}" class="h2 my-4"/>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-md-1"/>
+                            <div class="col-md-10 text-center">
+                                <a id="image" href="#{servicio.rutaImagen}">
+                                    <img src="#{controladorServicio.servicio.rutaImagen}" class="img-fluid rounded" alt="Servicio" height="160"/>
+                                </a>
+                            </div>
+                            <div class="col-md-1"/>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-1"/>
+                            <div class="col-md-10 form-group">
+                                <p:outputLabel value="#{lang.lblTableImagenServicio}" for="imagen"/><br/>
+                                <p:fileUpload id="imagen" value="#{controladorServicio.file}" mode="simple" skinSimple="true" virusScan="true" required="true"
+                                              chooseIcon="pi pi-upload" label="#{lang.txtSeleccion}" allowTypes="/(\.|\/)(png|jpg|jp?g)$/"/>
+                            </div>
+                            <div class="col-md-1"/>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-1"/>
+                            <div class="col-md-10 form-group">
+                                <p:outputLabel value="#{lang.lblTableNombreServicio}" for="nombre"/>
+                                <p:inputText id="nombre" value="#{controladorServicio.servicio.nombreServicio}" class="form-control" maxlength="30"
+                                             required="true" placeholder="#{lang.txtFormularioNombreServicio}" requiredMessage="#{lang.txtRNombreServicio}">
+                                    <f:validateRegex pattern="^[\w]+[Á-ÿ\u00f1\u00d1\s\w\,\.\-\:\;]+$"/>
+                                </p:inputText>
+                            </div>
+                            <div class="col-md-1"/>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-1"/>
+                            <div class="col-md-10 form-group">
+                                <p:outputLabel value="#{lang.lblTableDescripcionServicio}" for="descripcion"/>
+                                <p:inputTextarea id="descripcion" value="#{controladorServicio.servicio.descripcionServicio}" class="form-control"  maxlength="500"
+                                                 required="true" placeholder="#{lang.txtFormularioDescServicio}" requiredMessage="#{lang.txtRDescripServicio}" rows="4">
+                                    <f:validateRegex pattern="^[\w]+[Á-ÿ\u00f1\u00d1\s\w\,\.\-\:\;]+$"/>
+                                </p:inputTextarea>
+                            </div>
+                            <div class="col-md-1"/>
+                        </div>
+                        <div class="text-center">
+                            <p:commandButton value="#{lang.lblBtnActualizar}" class="btn btn-primary mt-3 mb-4" icon="pi pi-spinner"
+                                             actionListener="#{controladorServicio.editarServicio()}" update="form"/>
+                        </div>
+                    </h:form>
+                </div>
+                <div class="col-md-3"/>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

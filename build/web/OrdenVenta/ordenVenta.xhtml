@@ -1,0 +1,88 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="../template/dashboardAdmin.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <ui:define name="head"><title>#{lang.lblOrdenesVenta}</title></ui:define>
+    <ui:define name="migas">
+        <li class="breadcrumb-item active">#{lang.lblOrdenesVenta}</li>
+    </ui:define>
+    <ui:define name="encabezado">
+        <h:form class="enunciado">
+            <h:outputLabel class="ml-3 h1" value="#{lang.lblConsultarOrdenVenta}"/>
+            <p class="text-justify pt-3">#{lang.lblEnunciadoOrdenVenta}</p>
+        </h:form>
+    </ui:define>
+    <ui:define name="body">
+        <hr/>
+        <div class="row">
+            <div class="col-md-1"/>
+            <div class="col-md-10 my-4">         
+                <h:form id="form">
+                    <p:growl id="message" showDetail="true"/>
+                    <p:toolbar>
+                        <p:toolbarGroup>
+                            <p:commandButton value="#{lang.lblExportar}" icon="pi pi-upload" styleClass="ui-button-danger" ajax="false">
+                                <p:dataExporter type="xls" target="ordenes" fileName="#{lang.lblOrdenesVenta}"/>
+                            </p:commandButton>
+                        </p:toolbarGroup>
+                    </p:toolbar>
+                    <p:dataTable id="ordenes" value="#{controladorOrdenVenta.listarOrdenVenta()}" var="orden" widgetVar="tableOrden" class="table table-hover"
+                                 rows ="8" 
+                                 paginatorPosition="bottom"
+                                 paginator="true"
+                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 currentPageReportTemplate="{startRecord}-{endRecord} #{lang.lblDe} {totalRecords} #{lang.lblOrdenesVenta}"
+                                 rowsPerPageTemplate="8,16,32" filterBy="#{controladorOrdenVenta.buscarOrdenVenta}"
+                                 emptyMessage="#{lang.lblMensajeVacio}">
+                        <f:facet name="header">
+                            <span class="filter-container ui-input-icon-left">
+                                <i class="pi pi-search"/>
+                                <p:inputText id="globalFilter" onkeyup="PF('tableOrden').filter()" placeholder="#{lang.lblBuscar}"/>
+                            </span>
+                        </f:facet>
+                        <p:column headerText="#{lang.lblNombreCompletoUsuario}" sortBy="#{orden.numeroContrato.idCotizacion.idCliente.numeroIdentificacion.apellidos}" filterBy="#{orden.numeroContrato.idCotizacion.idCliente.numeroIdentificacion.nombres} #{orden.numeroContrato.idCotizacion.idCliente.numeroIdentificacion.apellidos}" filterStyle="display:none">
+                            <h:outputText value="#{orden.numeroContrato.idCotizacion.idCliente.numeroIdentificacion.nombres} #{orden.numeroContrato.idCotizacion.idCliente.numeroIdentificacion.apellidos}"/>
+                        </p:column>
+                        <p:column headerText="#{lang.lblNumeroContrato}" sortBy="#{orden.numeroContrato.numeroContrato}" filterBy="#{orden.numeroContrato.numeroContrato}" filterStyle="display:none">
+                            <h:outputText value="#{orden.numeroContrato.numeroContrato}"/>
+                        </p:column>
+                        <p:column headerText="#{lang.lblFechaPago}" sortBy="#{orden.fechaPago}" filterBy="#{orden.fechaPago}" filterStyle="display:none">
+                            <h:outputText value="#{orden.fechaPago}">
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="#{lang.lblNumeroCuota}" sortBy="#{orden.numeroCuota}" filterBy="#{orden.numeroCuota}" filterStyle="display:none">
+                            <h:outputText value="#{orden.numeroCuota}"/>
+                        </p:column>
+                        <p:column headerText="#{lang.lblEstadoOrdenVenta}" sortBy="#{orden.estadoOrdenVenta}" filterBy="#{orden.estadoOrdenVenta}" filterStyle="display:none">
+                            <h:outputText value="#{orden.estadoOrdenVenta}"/>
+                        </p:column>
+                        <p:column headerText="#{lang.lblAcciones}" exportable="false">
+                            <p:commandButton  icon="pi pi-eye"
+                                              action="#{controladorOrdenVenta.consultarOrdenVenta(orden)}"
+                                              styleClass="edit-button rounded-button ui-button-info mr-2"
+                                              title="#{lang.lblConsultar}">
+                            </p:commandButton>
+                            <p:commandButton icon="pi pi-pencil"
+                                             action="#{controladorOrdenVenta.preEditarOrdenVenta(orden)}"
+                                             styleClass="edit-button rounded-button ui-button-warning mr-2"
+                                             title="#{lang.lblEditar}">
+                            </p:commandButton>
+                            <p:commandButton icon="pi pi-send"
+                                             action="#{controladorPago.pago(orden)}"
+                                             styleClass="edit-button rounded-button ui-button-help"
+                                             title="#{lang.lblRegistrarPago}"
+                                             disabled="#{controladorPago.deshabilitarOrdenVenta(orden)}">
+                            </p:commandButton>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </div>
+            <div class="col-md-1"/>
+        </div>
+    </ui:define>
+</ui:composition>

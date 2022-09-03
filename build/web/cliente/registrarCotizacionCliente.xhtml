@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="../template/dashboardCliente.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="head"><title>#{lang.BtnEnviarCotizacion}</title></ui:define>
+    <ui:define name="preRender">
+        <f:event type="preRenderView" listener="#{controladorDetalleCotizacion.limpiarCotizacion()}"/>
+    </ui:define>
+    <ui:define name="migas">
+        <li class="breadcrumb-item bread"><h:commandLink action="carritoCompras?faces-redirect=true" value="#{lang.lblCarroCompras}"/></li>
+        <li class="breadcrumb-item active">#{lang.BtnEnviarCotizacion}</li>
+    </ui:define>
+    <ui:define name="body">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-2"/>
+                <div class="col-md-8">
+                    <h:form id="form" class="formulario">
+                        <p:growl id="msj" showDetail="true" life="3000"/>
+                        <div class="text-center">
+                            <h:outputLabel value="#{lang.lblRealizarCotizacion}" class="h2 my-4"/>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-1"/>
+                            <div class="col-md-10 form-group">
+                                <p:outputLabel value="#{lang.lblCantidadPlanesEscogidos}" for="cantidadPlanes"/>
+                                <p:inputNumber id="cantidadPlanes" value="#{controladorDetalleCotizacion.totalCantidad}" class="inputNumber" decimalPlaces="0" readonly="true"/>
+                            </div>
+                            <div class="col-md-1"/>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-1"/>
+                            <div class="col-md-10 form-group">
+                                <p:outputLabel value="#{lang.lblPlanesSeleccionados}" for="planesSeleccionados"/>
+                                <p:inputTextarea id="planesSeleccionados" value="#{controladorDetalleCotizacion.nombrePlanes}" class="form-control" readonly="true" rows="5"/>
+                            </div>
+                            <div class="col-md-1"/>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-1"/>
+                            <div class="col-md-10 form-group">
+                                <p:outputLabel value="#{lang.lblPrecioPlanesEscogidos}" for="precioPlanes"/>
+                                <p:inputNumber id="precioPlanes" value="#{controladorDetalleCotizacion.totalCompra}" class="inputNumber" symbol="$" thousandSeparator="," decimalSeparator="." readonly="true"/>
+                            </div>
+                            <div class="col-md-1"/>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-1"/>
+                            <div class="col-md-10 form-group">
+                                <p:outputLabel value="#{lang.lblDescripcioCotizacion}" for="descripcion"/>
+                                <p:inputTextarea id="descripcion" value="#{controladorDetalleCotizacion.detalleCotizacion.descripcionCotizacion}" class="form-control" maxlength="300"
+                                                 placeholder="#{lang.txtDecsripcioCotizacion}" requiredMessage="Debe escribir la descripción del servicio" required="true" rows="5">
+                                    <f:validateRegex pattern="^[\w]+[Á-ÿ\u00f1\u00d1\s\w\,\.\-\:\;]+$"/>
+                                </p:inputTextarea>
+                            </div>
+                            <div class="col-md-1"/>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-1"/>
+                            <div class="col-md-5 form-group">
+                                <p:outputLabel value="#{lang.lblFechaInicial}" for="inicio"/>
+                                <p:datePicker id="inicio" value="#{controladorDetalleCotizacion.detalleCotizacion.fechaInicialPrestacionServicios}" locale="es" monthNavigator="true" title="#{lang.lblFechaInicial}"
+                                              placeholder="#{lang.txtFechaInicial}" required="true" requiredMessage="#{lang.lblFechaInicialRequerido}"/>
+                            </div>
+                            <div class="col-md-5 form-group">
+                                <p:outputLabel value="#{lang.lblFechaFinal}" for="final"/>
+                                <p:datePicker id="final" value="#{controladorDetalleCotizacion.detalleCotizacion.fechaFinalPrestacionServicios}" locale="es" monthNavigator="true" title="#{lang.lblFechaFinal}"
+                                              placeholder="#{lang.txtFechaFinal}" required="true" requiredMessage="#{lang.lblFechaFinalRequerido}"/>
+                            </div>
+                            <div class="col-md-1"/>
+                        </div>
+                        <div class="text-center">
+                            <p:commandButton value="#{lang.BtnEnviarCotizacion}" class="btn btn-primary mt-3 mb-4" icon="pi pi-send"
+                                             actionListener="#{controladorDetalleCotizacion.enviarCotizacion()}" update="form"/>
+                        </div>
+                    </h:form>
+                </div>
+                <div class="col-md-2"/>
+            </div>	
+        </div>
+        <script src="../js/calendarioEspanol.js"></script>
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,143 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="../template/dashboardAdmin.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <ui:define name="head"><title>#{lang.lblRegistroVenta}</title></ui:define>
+    <ui:define name="preRender">
+        <f:event type="preRenderView" listener="#{controladorVenta.limpiarDetalleVenta()}"/>
+    </ui:define>
+    <ui:define name="migas">
+        <li class="breadcrumb-item bread"><h:commandLink action="/Cotizacion/cotizacion?faces-redirect=true" value="#{lang.lblCotizaciones}"/></li>
+        <li class="breadcrumb-item active">#{lang.lblRegistroVenta}</li>
+    </ui:define>
+    <ui:define name="body">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-2"/>
+                <div class="col-md-8">
+                    <h:form class="formulario">
+                        <div class="text-center">
+                            <h:outputLabel value="#{lang.lblDatosCotizacion}" class="h2 my-4"/>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-1"/>
+                            <div class="col-md-5 form-group">
+                                <p:outputLabel value="#{lang.lblNumId}" for="numId"/>
+                                <p:inputText id="numId" value="#{controladorVenta.detalleCotizacion.idCotizacion.idCliente.numeroIdentificacion.numeroIdentificacion}" class="form-control" title="#{lang.lblNumId}" readonly="true"/>
+                            </div>
+                            <div class="col-md-5 form-group">
+                                <p:outputLabel value="#{lang.lblNombreCompletoUsuario}" for="nombres"/>
+                                <p:inputText id="nombres" value="#{controladorVenta.detalleCotizacion.idCotizacion.idCliente.numeroIdentificacion.nombres} #{controladorVenta.detalleCotizacion.idCotizacion.idCliente.numeroIdentificacion.apellidos}" class="form-control" title="#{lang.lblNombreCompletoUsuario}" readonly="true"/>
+                            </div>
+                            <div class="col-md-1"/>
+                        </div> 
+                        <div class="form-row">
+                            <div class="col-md-1"/>
+                            <div class="col-md-5 form-group">
+                                <p:outputLabel value="#{lang.lblPlanes}" for="planesSeleccionados"/>
+                                <p:inputText id="planesSeleccionados" value="#{controladorVenta.detalleCotizacion.nombrePlanes}" class="form-control" title="#{lang.lblDescripcioCotizacion}" readonly="true"/>
+                            </div>
+                            <div class="col-md-5 form-group">
+                                <p:outputLabel value="#{lang.lblCantidadPlanesEscogidos}" for="planes"/>
+                                <p:inputNumber id="planes" value="#{controladorVenta.detalleCotizacion.cantidadTotalPlanes}" styleClass="inputNumber" title="#{lang.lblCantidadPlanesEscogidos}" decimalPlaces="0" readonly="true"/>
+                            </div>
+                            <div class="col-md-1"/>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-1"/>
+                            <div class="col-md-5 form-group">
+                                <p:outputLabel value="#{lang.lblPrecioPlanesCotizacion}" for="precio"/>
+                                <p:inputNumber id="precio" value="#{controladorVenta.detalleCotizacion.precioTotalPlanes}" styleClass="inputNumber" title="#{lang.lblPrecioPlanesEscogidos}" symbol="$" thousandSeparator="," decimalSeparator="." readonly="true"/>
+                            </div>
+                            <div class="col-md-5 form-group">
+                                <p:outputLabel value="#{lang.lblEstadoCotizacion}" for="estado"/>
+                                <p:inputText id="estado" value="#{controladorVenta.detalleCotizacion.idCotizacion.idEstadoCotizacion.estadoCotizacion}" class="form-control" title="#{lang.lblEstadoCotizacion}" readonly="true"/>
+                            </div>
+                            <div class="col-md-1"/>
+                        </div>
+                        <div class="form-row pb-4">
+                            <div class="col-md-1"/>
+                            <div class="col-md-10 form-group">
+                                <p:outputLabel value="#{lang.lblDescripcioCotizacion}" for="detalle"/>
+                                <p:inputTextarea id="detalle" value="#{controladorVenta.detalleCotizacion.descripcionCotizacion}" class="form-control" title="#{lang.lblDescripcioCotizacion}" readonly="true"/>
+                            </div>
+                            <div class="col-md-1"/>
+                        </div>
+                    </h:form>
+                </div>
+                <div class="col-md-2"/>
+            </div>
+            <div class="row my-4">
+                <div class="col-md-2"/>
+                <div class="col-md-8">
+                    <h:form id="form" class="formulario">
+                        <p:growl id="datos" showDetail="true" life="3000"/>
+                        <div class="text-center">
+                            <h:outputLabel value="#{lang.lblRegistroVenta}" class="h2 my-4"/>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-1"/>
+                            <div class="col-md-5 form-group">
+                                <p:outputLabel value="#{lang.lblNumeroContrato}" for="numContrato"/>
+                                <p:inputText id="numContrato" value="#{controladorVenta.venta.numeroContrato}" class="form-control" maxlength="10" title="#{lang.lblNumeroContrato}"
+                                             placeholder="#{lang.txtNumeroContrato}" required="true" requiredMessage="#{lang.lblNumeroContratoRequerido}">
+                                    <f:validator validatorId="validadorNumeroContrato" for="numContrato"/>
+                                </p:inputText>
+                            </div>
+                            <div class="col-md-5 form-group">
+                                <p:outputLabel value="#{lang.lblFechaVenta}" for="venta"/>
+                                <p:datePicker id="venta" value="#{controladorVenta.detalleVenta.fechaVenta}" locale="es"  monthNavigator="true" title="#{lang.lblFechaVenta}"
+                                              placeholder="#{lang.txtFechaVenta}" required="true" requiredMessage="#{lang.lblFechaVentaRequerido}"/>
+                            </div>
+                            <div class="col-md-1"/>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-1"/>
+                            <div class="col-md-5 form-group">
+                                <p:outputLabel value="#{lang.lblFechaInicial}" for="inicio"/>
+                                <p:datePicker id="inicio" value="#{controladorVenta.detalleVenta.fechaInicialPrestacionServicios}" locale="es" monthNavigator="true" title="#{lang.lblFechaInicial}"
+                                              placeholder="#{lang.txtFechaInicial}" required="true" requiredMessage="#{lang.lblFechaInicialRequerido}"/>
+                            </div>
+                            <div class="col-md-5 form-group">
+                                <p:outputLabel value="#{lang.lblFechaFinal}" for="final"/>
+                                <p:datePicker id="final" value="#{controladorVenta.detalleVenta.fechaFinalPrestacionServicios}" locale="es" monthNavigator="true" title="#{lang.lblFechaFinal}"
+                                              placeholder="#{lang.txtFechaFinal}" required="true" requiredMessage="#{lang.lblFechaFinalRequerido}"/>
+                            </div>
+                            <div class="col-md-1"/>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-1"/>
+                            <div class="col-md-5 form-group">
+                                <p:outputLabel value="#{lang.lblMontoCobroMensual}" for="cobro"/>
+                                <p:inputNumber id="cobro" value="#{controladorVenta.detalleVenta.montoCobroMensual}" styleClass="inputNumber" maxValue="99999999" modifyValueOnWheel="false" title="#{lang.lblMontoCobroMensual}"
+                                               symbol="$" thousandSeparator="," decimalSeparator="." placeholder="#{lang.txtMontoCobroMensual}" required="true" requiredMessage="#{lang.lblMontoCobroMensualRequerido}"/>
+                            </div>
+                            <div class="col-md-6"/>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-1"/>
+                            <div class="col-md-10 form-group">
+                                <p:outputLabel value="#{lang.lblDescripcionVenta}" for="desc"/>
+                                <p:inputTextarea id="desc" value="#{controladorVenta.detalleVenta.descripcionVenta}" class="form-control" title="#{lang.lblDescripcionVenta}" maxlength="500"
+                                                 placeholder="#{lang.txtDescripcionVenta}" required="true" requiredMessage="#{lang.lblDescripcionVentaRequerido}">
+                                    <f:validator validatorId="validadorDescripcion" for="desc"/>
+                                </p:inputTextarea>
+                            </div>
+                            <div class="col-md-1"/>
+                        </div>
+                        <div class="text-center">
+                            <p:commandButton value="#{lang.lblBtnRegistro}" icon="pi pi-dollar" actionListener="#{controladorVenta.registrarDetalleVenta()}"
+                                             update="datos" class="btn btn-primary mt-3 mb-4"/>
+                        </div>
+                    </h:form>
+                </div>
+                <div class="col-md-2"/>
+            </div>
+        </div>
+        <script src="../js/calendarioEspanol.js"></script>
+    </ui:define>
+</ui:composition>

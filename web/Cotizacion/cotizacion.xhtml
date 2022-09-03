@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="../template/dashboardAdmin.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <ui:define name="head"><title>#{lang.lblCotizaciones}</title></ui:define>
+    <ui:define name="migas">
+        <li class="breadcrumb-item active">#{lang.lblCotizaciones}</li>
+    </ui:define>
+    <ui:define name="encabezado">
+        <h:form class="enunciado">
+            <h:outputLabel class="ml-3 h1" value="#{lang.lblCotizaciones}"/>
+            <p class="text-justify pt-3">#{lang.lblAquiAvance} #{lang.lblCotizacionesTitle}</p>
+        </h:form>
+    </ui:define>
+    <ui:define name="body">
+        <hr/>
+        <div class="row">
+            <div class="col-md-1"/>
+            <div class="col-md-10 my-4">
+                <h:form id="form">
+                    <p:toolbar>
+                        <p:toolbarGroup>
+                            <h:commandButton value="#{lang.lblBtnReporte}" actionListener="#{controladorCotizacion.reporteCotizacion}" class="btn btn-primary mr-3"/>
+                            <p:commandButton value="#{lang.lblExportar}" icon="pi pi-upload" styleClass="ui-button-danger">
+                                <p:dataExporter type="xls" target="cotizacion" fileName="#{lang.lblCotizaciones}"/>
+                            </p:commandButton>
+                        </p:toolbarGroup>
+                    </p:toolbar>
+                    <p:dataTable id="cotizacion" value="#{controladorCotizacion.listarCotizacion()}" var="cotizacion" widgetVar="tableCot" class="table table-hover"
+                                 rows ="8"
+                                 paginatorPosition="bottom"
+                                 paginator="true"
+                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 currentPageReportTemplate="{startRecord}-{endRecord} #{lang.lblDe} {totalRecords} #{lang.lblCotizaciones}"
+                                 rowsPerPageTemplate="8,16,32" filterBy="#{controladorCotizacion.buscarCotizacion}"
+                                 emptyMessage="#{lang.lblMensajeVacio}">
+                        <f:facet name="header">
+                            <span class="filter-container ui-input-icon-left">
+                                <i class="pi pi-search"/>
+                                <p:inputText id="globalFilter" onkeyup="PF('tableCot').filter()" placeholder="#{lang.lblBuscar}"/>
+                            </span>
+                        </f:facet>
+                        <p:column headerText="#{lang.lblNumeroCotizacion}" sortBy="#{cotizacion.idCotizacion.idCotizacion}" filterBy="#{cotizacion.idCotizacion.idCotizacion}" filterStyle="display:none">
+                            <h:outputText value="#{cotizacion.idCotizacion.idCotizacion}"/>
+                        </p:column>
+                        <p:column headerText="#{lang.lblCantidadTotalPlanes}" sortBy="#{cotizacion.cantidadTotalPlanes}" filterBy="#{cotizacion.cantidadTotalPlanes}" filterStyle="display:none">
+                            <h:outputText value="#{cotizacion.cantidadTotalPlanes}"/>
+                        </p:column>
+                        <p:column headerText="#{lang.lblPrecioTotalCarro2}" sortBy="#{cotizacion.precioTotalPlanes}" filterBy="#{cotizacion.precioTotalPlanes}" filterStyle="display:none">
+                            <h:outputText value="#{cotizacion.precioTotalPlanes}"/>
+                        </p:column>
+                        <p:column headerText="#{lang.lblFechaCotizacion}" sortBy="#{cotizacion.fechaRegistro}" filterBy="#{cotizacion.fechaRegistro}" filterStyle="display:none">
+                            <h:outputText value="#{cotizacion.fechaRegistro}">
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="#{lang.lblEstadoCotizacion}" sortBy="#{cotizacion.idCotizacion.idEstadoCotizacion.estadoCotizacion}" filterBy="#{cotizacion.idCotizacion.idEstadoCotizacion.estadoCotizacion}" filterStyle="display:none">
+                            <h:outputText value="#{cotizacion.idCotizacion.idEstadoCotizacion.estadoCotizacion}"/>
+                        </p:column>
+                        <p:column headerText="#{lang.lblDescripcioCotizacion}" sortBy="#{cotizacion.descripcionCotizacion}" filterBy="#{cotizacion.descripcionCotizacion}" filterStyle="display:none">
+                            <h:outputText value="#{cotizacion.descripcionCotizacion}"/>
+                        </p:column>
+                        <p:column headerText="#{lang.lblAcciones}" exportable="false">
+                            <p:commandButton icon="pi pi-send" title="#{lang.lblResponderCotizacion}"
+                                             action="#{controladorCotizacion.preEditarRespuestaCotizacion(cotizacion)}"
+                                             styleClass="edit-button rounded-button ui-button-info mr-2"
+                                             disabled="#{controladorCotizacion.deshabilitarRespuesta(cotizacion)}">
+                            </p:commandButton>
+                            <p:commandButton icon="pi pi-dollar" title="#{lang.lblRegistrarVenta}"
+                                             action="#{controladorVenta.venta(cotizacion)}"
+                                             styleClass="edit-button rounded-button ui-button-success"
+                                             disabled="#{controladorVenta.deshabilitarVenta(cotizacion)}">
+                            </p:commandButton>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </div>
+            <div class="col-md-1"/>
+        </div>
+    </ui:define>
+</ui:composition>

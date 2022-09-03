@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="../template/dashboardCliente.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="head"><title>#{lang.lblCarroCompras}</title></ui:define>
+    <ui:define name="migas">
+        <li class="breadcrumb-item active">#{lang.lblCarroCompras}</li>
+    </ui:define>
+    <ui:define name="encabezado">
+        <h:form class="enunciado">
+            <h:outputLabel class="ml-3 h1" value="#{lang.lblCarroCompras}"/>
+            <p class="text-justify pt-3">#{lang.lblEnunciadoCarritoCompras}</p>
+        </h:form>
+    </ui:define>
+    <ui:define name="body">
+        <hr/>
+        <div class="row">
+            <div class="col-md-1"/>
+            <div class="col-md-10 my-4">         
+                <h:form id="form">
+                    <p:dataTable id="carritoCompra" value="#{controladorDetalleCotizacion.carrito}" var="planes" widgetVar="tablaCarrito" class="table table-hover"
+                                 rows ="8" 
+                                 emptyMessage="#{lang.txtNoEscogidoPlanes}">
+                        <p:growl id="message" showDetail="true"/>
+                        <f:facet name="header">
+                            <span class="h4">#{lang.lblPlanesSeleccionados}</span>
+                        </f:facet>
+                        <p:column headerText="#{lang.lblImagenPlan}">
+                            <a href="#{planes.rutaImagen}">
+                                <img src="#{planes.rutaImagen}" class="img-fluid"/>
+                            </a>
+                        </p:column>
+                        <p:column headerText="#{lang.lblPlanes}" sortBy="#{planes.nombrePlan}">
+                            <h:outputText value="#{planes.nombrePlan}"/>
+                        </p:column>
+                        <p:column headerText="#{lang.lblCantidadCarro}" sortBy="#{planes.cantidad}" class="text-center">
+                            <h:outputText value="#{planes.cantidad}"/>
+                        </p:column>
+                        <p:column headerText="#{lang.lblPrecioPlan}" sortBy="#{planes.precioPlan}">
+                            <h:outputText value="#{planes.precioPlan}">
+                                <f:convertNumber type="currency" currencySymbol="$"/>
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="#{lang.lblAcciones}">
+                            <p:commandButton icon="pi pi-eye" title="#{lang.lblVerDetalles}"
+                                             styleClass="edit-button rounded-button ui-button-info mr-2"
+                                             action="#{controladorPlan.perVerDetallesPlan(planes)}" />
+                            <p:commandButton icon="pi pi-ban" action="#{controladorDetalleCotizacion.borrarDelCarrito(planes.idPlan)}" update="message" styleClass="edit-button rounded-button ui-button-danger">
+                                <p:confirm type="popup" header="#{lang.lblDialogTitulo}" message="#{lang.lblConfirmarCarro}" icon="pi pi-exclamation-triangle"/>
+                            </p:commandButton>
+                            <p:confirmPopup global="true">
+                                <p:commandButton value="#{lang.lblNo}" type="button" styleClass="ui-confirm-popup-no ui-button-flat"/>
+                                <p:commandButton value="#{lang.lblSi}" type="button" styleClass="ui-confirm-popup-yes" />
+                            </p:confirmPopup>
+                        </p:column>
+                    </p:dataTable>
+                    <div class="text-center my-4">
+                        <h:outputLabel value="#{lang.lblPrecioTotalPlanesCarro}"/>
+                        <h:outputText value="#{controladorDetalleCotizacion.totalCompra}" rendered="#{not empty controladorDetalleCotizacion.carrito}" class="font-weight-bold ml-2">
+                            <f:convertNumber type="currency" currencySymbol="$"/>
+                        </h:outputText>
+                        <br/>
+                        <h:outputLabel value="#{lang.lblCantidadTotalPlanes}"/>
+                        <h:outputText value="#{controladorDetalleCotizacion.totalCantidad}" rendered="#{not empty controladorDetalleCotizacion.carrito}" class="font-weight-bold ml-2"/>
+                    </div>
+                    <div class="text-center">
+                        <h:commandLink action="#{controladorDetalleCotizacion.preRegistrarCotización(controladorDetalleCotizacion.totalCantidad)}" value="#{lang.lblRealizarCotizacion}" class="btn btn-primary salto mr-4"/>
+                        <h:commandLink action="planesCliente?faces-redirect=true" value="#{lang.lblSeguirConPlanes}" class="btn btn-primary"/>
+                    </div>
+                </h:form>
+            </div>
+            <div class="col-md-1"/>
+        </div>
+    </ui:define>
+</ui:composition>

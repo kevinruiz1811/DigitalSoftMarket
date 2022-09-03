@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head lang="es">
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+        <link rel="stylesheet" href="../css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="../css/estilos.css"/>
+        <link rel="stylesheet" href="../css/style.css"/>
+        <link rel="shortcut icon" href="../imagenes/favicon.png" type="image/x-icon"/>
+        <ui:insert name="head"/>
+    </h:head>
+    <h:body>
+        <ui:insert name="preRender"/>
+        <f:event type="preRenderView" listener="#{controladorLogin.verificarSesion()}"/>
+        <f:view locale="#{controladorLenguaje.lenguajeSeleccionado}">
+            <div class="wrapper">
+                <nav id="sidebar">
+                    <h:form>
+                        <div class="sidebar-header text-center py-4 font-weight-bold border-bottom">
+                            Digital Soft Market
+                        </div>
+                        <ul class="list-unstyled components">
+                            <li class="active">
+                                <h:commandLink action="/Interfaz/admin?faces-redirect=true"><i class="pi pi-ellipsis-v mr-2"/>Dashboard</h:commandLink>
+                            </li>
+                            <li>
+                                <a href="#pageUsuarios" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                                    <i class="pi pi-users mr-2"/>#{lang.lblGestionUsuarios}</a>
+                                <ul class="collapse list-unstyled" id="pageUsuarios">
+                                    <li>
+                                        <h:commandLink action="/Usuario/usuario?faces-redirect=true"><i class="pi pi-arrow-right mx-2"/>#{lang.lblConsultarUsuario}</h:commandLink>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#pageVentas" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                                    <i class="pi pi-shopping-cart mr-2"/>#{lang.lblGestionVentas}</a>
+                                <ul class="collapse list-unstyled" id="pageVentas">
+                                    <li>
+                                        <h:commandLink action="/Cotizacion/cotizacion?faces-redirect=true"><i class="pi pi-arrow-right mx-2"/>#{lang.lblCotizaciones}</h:commandLink>
+                                    </li>
+                                    <li>
+                                        <h:commandLink action="/Venta/venta?faces-redirect=true"><i class="pi pi-arrow-right mx-2"/>#{lang.lblVentas}</h:commandLink>
+                                    </li>
+                                    <li>
+                                        <h:commandLink action="/OrdenVenta/ordenVenta?faces-redirect=true"><i class="pi pi-arrow-right mx-2"/>#{lang.lblOrdenVenta}</h:commandLink>
+                                    </li>
+                                    <li>
+                                        <h:commandLink action="/Pago/pago?faces-redirect=true"><i class="pi pi-arrow-right mx-2"/>#{lang.lblPagos}</h:commandLink>
+                                    </li>
+                                    <li>
+                                        <h:commandLink action="/Venta/grafico?faces-redirect=true"><i class="pi pi-arrow-right mx-2"/>#{lang.lblGraficoVenta}</h:commandLink>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#pageServicios" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                                    <i class="pi pi-book mr-2"/>#{lang.lblGestionServicios} <br/> #{lang.lblYPlanes}</a>
+                                <ul class="collapse list-unstyled" id="pageServicios">
+                                    <li>
+                                        <h:commandLink action="/Servicios/servicios?faces-redirect=true"><i class="pi pi-arrow-right mx-2"/>#{lang.lblServicios}</h:commandLink>
+                                    </li>
+                                    <li>
+                                        <h:commandLink action="/Planes/planesAdmin?faces-redirect=true"><i class="pi pi-arrow-right mx-2"/>#{lang.lblPlanes}</h:commandLink>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#pagePrestacionServicios" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                                    <i class="pi pi-briefcase mr-2"/>#{lang.lblGestionPrestacion}<br/>#{lang.lblGestionPrestacion2}</a>
+                                <ul class="collapse list-unstyled" id="pagePrestacionServicios">
+                                    <li>
+                                        <h:commandLink action="/OrdenPrestacionServicios/ordenPrestacionServicios?faces-redirect=true"><i class="pi pi-arrow-right mx-2"/>#{lang.lblOrdenPrestacionServicio}</h:commandLink>
+                                    </li>
+                                    <li>
+                                        <h:commandLink action="/AvancesEmpleados/Avances?faces-redirect=true"><i class="pi pi-arrow-right mx-2"/>#{lang.lblAvanceCampaña}</h:commandLink>
+                                    </li>
+                                    <li>
+                                        <h:commandLink action="/EmpleadosAsignados/empleadosPrestacion?faces-redirect=true"><i class="pi pi-arrow-right mx-2"/>#{lang.lblEmpleados}</h:commandLink>
+                                    </li>
+                                    <li>
+                                        <h:commandLink action="/OrdenPrestacionServicios/generarReportesPrestacion?faces-redirect=true"><i class="pi pi-arrow-right mx-2"/>#{lang.lblGraficoClientes}</h:commandLink>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </h:form>
+                </nav>
+                <div id="content">
+                    <h:form>
+                        <nav class="navbar navbar-expand-lg">
+                            <div class="container-fluid my-1">
+                                <button type="button" id="sidebarCollapse" class="btn btn-primary ml-2">
+                                    <i class="pi pi-bars"/><span class="ml-2">#{lang.lblMenu}</span>
+                                </button>
+                                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                                    <span class="pi pi-align-justify"></span>
+                                </button>
+                                <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                                    <div class="navbar-nav text-center">
+                                        <span class="bandera">
+                                            <c:if test="#{controladorLenguaje.lenguajeSeleccionado==controladorLenguaje.espanol}">
+                                                <h:commandLink action="#{controladorLenguaje.cambiarIdioma('en')}">
+                                                    <h:graphicImage url="../imagenes/languages/en.png" width="25" title="#{lang.lblLenguaje}"/>
+                                                </h:commandLink>
+                                            </c:if>
+                                            <c:if test="#{controladorLenguaje.lenguajeSeleccionado==controladorLenguaje.ingles}">
+                                                <h:commandLink action="#{controladorLenguaje.cambiarIdioma('es')}">
+                                                    <h:graphicImage url="../imagenes/languages/es.png" width="25" title="#{lang.lblLenguaje}"/>
+                                                </h:commandLink>
+                                            </c:if>
+                                        </span>
+                                        <div class="btn-group d-inline">
+                                            <button type="button" class="btn" data-toggle="dropdown">
+                                                <p:graphicImage url="#{controladorLogin.usuarioLogueado.rutaImagen}" class="mr-2 rounded-circle" alt="Usuario" height="40" width="50" title="#{controladorLogin.usuarioLogueado.nombres} #{controladorLogin.usuarioLogueado.apellidos}"/>
+                                            </button>
+                                            <div id="user-menu" class="dropdown-menu dropdown-menu-right">
+                                                <h:commandLink class="dropdown-item" type="button" action="/Perfil/perfilAdmin?faces-redirect=true" value="#{lang.lblPerfil}"/>
+                                                <h:commandLink class="dropdown-item" type="button" action="/Perfil/cambiarClave?faces-redirect=true" value="#{lang.lblCambiarClave}"/>
+                                                <h:commandLink class="dropdown-item" type="button" action="#{controladorLogin.logout()}" value="#{lang.lblCerrar}"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </nav>
+                    </h:form>
+                    <div class="container-fluid">
+                        <h:form>
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb justify-content-end">
+                                    <h:commandLink class="breadcrumb-item" action="/Interfaz/admin?faces-redirect=true"><i class="pi pi-home mr-2 mt-1"/>#{lang.lblInicio}</h:commandLink>
+                                    <ui:insert name="migas"/>
+                                </ol>
+                            </nav>
+                        </h:form>
+                        <ui:insert name="welcome"/>
+                        <div class="row">
+                            <div class="col-md-1"/>
+                            <div class="col-md-10">
+                                <ui:insert name="encabezado"/>
+                            </div>
+                            <div class="col-md-1"/>
+                        </div>
+                        <ui:insert name="body"/>
+                    </div>
+                </div>
+            </div>
+        </f:view>
+        <ui:insert name="footer"/>
+        <script src="../js/bootstrap.bundle.min.js"></script>
+        <script src="../js/dash.js"></script>
+    </h:body>
+</html>

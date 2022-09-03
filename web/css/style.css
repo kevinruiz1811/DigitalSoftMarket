@@ -1,0 +1,230 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap');
+
+/*SIDEBAR*/
+
+:root{
+    --main-bg-color: #2a83d1;
+    --main-text-color: #2a83d1;
+    --secondary-bg-color: #fafafa;
+    --secondary-text-color: #fafafa;
+    --black-text: #000000;
+    --sidebar-bg-color: #f7f7f7;
+    --items: #454545;
+    --text: 'Roboto Slab', serif;
+}
+
+body{
+    margin: 0;
+    padding: 0;
+    background-color: var(--sidebar-bg-color);
+}
+
+.wrapper {
+    display: flex;
+    width: 100%;
+    align-items: stretch;
+}
+
+#sidebar {
+    min-width: 250px;
+    max-width: 250px;
+    color: var(--main-text-color);
+    background-color: white;
+    transition: all .4s;
+}
+
+#sidebar.active{
+    margin-left: -250px;
+}
+
+#sidebar .sidebar-header{
+    padding: .9rem 1.25rem;
+    font-size: 1.360rem;
+    font-family: var(--text);
+    cursor: default;
+}
+
+.navbar{
+    padding: .55rem;
+    background-color: white;
+    border: none;
+    border-radius: 0;
+    margin-bottom: 1.5rem;
+    box-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+}
+
+a,
+a:hover,
+a:focus{
+    text-decoration: none;
+}
+
+#sidebar ul li a{
+    position: relative;
+    display: block;
+    padding: 1.2rem 1.5rem;
+    font-size: 1.020rem;
+    font-weight: bold;
+    border-bottom: 1px solid rgba(0,0,0,.125)
+}
+
+#sidebar ul .active a{
+    border-bottom: 2px solid var(--main-bg-color);
+    box-shadow: inherit !important;
+}
+
+#sidebar ul li a:hover {
+    color: var(--items);
+    transition: .5s;
+}
+
+#sidebar ul li a:focus {
+    color: inherit;
+    background-color: var(--sidebar-bg-color);
+    box-shadow: 0 1px 2px black;
+}
+
+a[data-toggle="collapse"] {
+    position: relative;
+}
+
+.dropdown-toggle::after {
+    display: block;
+    position: absolute;
+    top: 50%;
+    right: 1rem;
+    transform: translateY(-50%);
+}
+
+ul ul a{
+    color: var(--items);
+    font-size: 0.980rem !important;
+    padding-left: 1.8rem !important;
+    background-color: white;
+}
+
+ul ul a:hover{
+    color: var(--maint-text-color) !important;
+    font-size: 1.030rem !important;
+    padding-left: 1.9rem !important;
+    background-color: var(--sidebar-bg-color);
+}
+
+#content {
+    width: 100%;
+    min-height: 100vh;
+    transition: all .5s;
+}
+
+.navbar-toggler span{
+    color: var(--main-bg-color);
+}
+
+#user-menu{
+    background-color: white;
+    text-align: center;
+}
+
+#user-menu a{
+    font-weight: 600;
+    color: var(--main-text-color);
+}
+
+#user-menu a:hover{
+    color: var(--secondary-text-color);
+    background-color: var(--main-bg-color);
+    transition: .7s;
+}
+
+.breadcrumb{
+    background-color: transparent;
+    font-family: var(--text);
+}
+
+.breadcrumb a{
+    color: var(--main-text-color);
+}
+
+.breadcrumb a:hover{
+    color: var(--items);
+    transition: .7s;
+}
+
+/*CARDS*/
+
+.card-header{
+    background-color: var(--main-bg-color);
+    color: var(--secondary-text-color);
+}
+
+#admin .card{
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+}
+
+#admin .card:hover{
+    transform: translateY(-15px);
+    box-shadow: 0 12px 16px rgba(0, 0, 0, 0.2);
+    transition: .25s;
+}
+
+#admin .cardImg:hover{
+    cursor: pointer;
+    box-shadow: 2px 2px 4px rgb(0, 0, 0);
+    opacity: .8;
+    transition: .5s;
+}
+
+#admin .card-title{
+    font: bold 1.150rem var(--text);
+    color: var(--main-text-color);
+}
+
+#admin .card-text{
+    font-size: 1rem;
+    color: var(--items);
+}
+
+#admin .card-footer a{
+    font: bold 1.15rem Arial;
+    color: var(--main-text-color);
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+}
+
+#admin .card-footer a:hover{
+    font: bold 1.2rem Arial;
+    color: var(--black-text);
+    transition: all .5s;
+}
+
+.bandera{
+    margin: .6rem 1.5rem 0 0;
+}
+
+.carrito{
+    margin: .550rem .770rem 0 0;
+}
+
+@media(max-width:768px){
+    #sidebar{
+        margin-left: -250px;
+    }
+    #sidebar.active{
+        margin-left: 0;
+    }
+    #sidebarCollapse span{
+        display: none;
+    }
+    .navbar{
+        padding: .60rem;
+    }
+}
+
+@media screen and (max-width: 990px){
+    .navbar{
+        padding: 1.050rem;
+    }
+}

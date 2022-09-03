@@ -1,0 +1,128 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="../template/dashboardAdmin.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="head"><title>#{lang.lblAdministrador}</title></ui:define>
+    <ui:define name="welcome">
+        <div class="row">
+            <div class="col-md-12">
+                <h:form class="pl-4">
+                    <h:outputText class="h1 pl-2" value="#{lang.lblBienvenido}"/><br/>
+                    <h:outputLabel class="mt-2 font" value="#{lang.lblActividadesFre}"/>
+                </h:form>
+            </div>
+        </div>
+    </ui:define>
+    <ui:define name="body">
+        <hr/>
+        <h:form id="admin">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 px-4">
+                <div class="col mb-4">
+                    <div class="card h-100">
+                        <h:commandLink class="cardImg" action="/Cotizacion/cotizacion?faces-redirect=true">
+                            <h:graphicImage url="../imagenes/admin/venta.jpg" class="card-img-top" alt="Venta Electrónica"/>
+                        </h:commandLink>
+                        <div class="card-body">
+                            <h5 class="card-title">#{lang.lblVentas}</h5>
+                            <p class="card-text">#{lang.lblRegistrarNuevaVenta}</p>
+                        </div>
+                        <div class="card-footer">
+                            <h:commandLink action="/Cotizacion/cotizacion?faces-redirect=true">
+                                <i class="pi pi-shopping-cart mr-2"/>#{lang.lblBotonRegistrarVenta}
+                            </h:commandLink>
+                        </div>
+                    </div>
+                </div>
+                <div class="col mb-4">
+                    <div class="card h-100">
+                        <h:commandLink class="cardImg" action="/OrdenVenta/ordenVenta?faces-redirect=true">
+                            <h:graphicImage url="../imagenes/admin/pago.jpg" class="card-img-top" alt="Pago Digital"/>
+                        </h:commandLink>
+                        <div class="card-body">
+                            <h5 class="card-title">#{lang.lblPagos}</h5>
+                            <p class="card-text">#{lang.lblRegistraPagoCliente}</p>
+                        </div>
+                        <div class="card-footer">
+                            <h:commandLink action="/OrdenVenta/ordenVenta?faces-redirect=true">
+                                <i class="pi pi-wallet mr-2"/>#{lang.lblBotonPago}
+                            </h:commandLink>
+                        </div>
+                    </div>
+                </div>
+                <div class="col mb-4">
+                    <div class="card h-100">
+                        <h:commandLink class="cardImg" action="/Venta/venta?faces-redirect=true">
+                            <h:graphicImage url="../imagenes/admin/ordenVenta.jpg" class="card-img-top" alt="Orden de Venta electrónica"/>
+                        </h:commandLink>
+                        <div class="card-body">
+                            <h5 class="card-title">#{lang.lblOrdenVenta}</h5>
+                            <p class="card-text">#{lang.lblEnviarOrdenVentaCliente}</p>
+                        </div>
+                        <div class="card-footer">
+                            <h:commandLink action="/Venta/venta?faces-redirect=true">
+                                <i class="pi pi-send mr-2"/>#{lang.lblBotonEnviarOrdenVenta}
+                            </h:commandLink>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 px-4">
+                <div class="col mb-4">
+                    <div class="card h-100">
+                        <h:commandLink class="cardImg" action="/Usuario/usuario?faces-redirect=true">
+                            <h:graphicImage url="../imagenes/admin/fondoUsuarios.jpg" class="card-img-top" alt="Fondo de Usuarios"/>
+                        </h:commandLink>
+                        <div class="card-body">
+                            <h5 class="card-title">#{lang.lblUsuarios}</h5>
+                            <p class="card-text">#{lang.lblRegistrarNuevoUsuario}</p>
+                        </div>
+                        <div class="card-footer">
+                            <h:commandLink action="/Usuario/usuario?faces-redirect=true">
+                                <i class="pi pi-user-plus mr-2"/>#{lang.lblRegistrarUsuario}
+                            </h:commandLink>
+                        </div>
+                    </div>
+                </div>
+                <div class="col mb-4">
+                    <div class="card h-100">
+                        <h:commandLink class="cardImg" action="/Cotizacion/cotizacion?faces-redirect=true">
+                            <h:graphicImage url="../imagenes/admin/cotizacion.jpg" class="card-img-top" alt="Cotizaciones"/>
+                        </h:commandLink>
+                        <div class="card-body">
+                            <h5 class="card-title">#{lang.lblCotizaciones}</h5>
+                            <p class="card-text">#{lang.lblConsultarCotizacionesRegistradas}</p>
+                        </div>
+                        <div class="card-footer">
+                            <h:commandLink action="/Cotizacion/cotizacion?faces-redirect=true">
+                                <i class="pi pi-envelope mr-2"/>#{lang.lblBotonConsultarCotizaciones}
+                            </h:commandLink>
+                        </div>
+                    </div>
+                </div>
+                <div class="col mb-4">
+                    <div class="card h-100">
+                        <h:commandLink class="cardImg" action="/OrdenPrestacionServicios/preRegistroOrdenPrestacion?faces-redirect=true">
+                            <h:graphicImage url="../imagenes/admin/prestacionServicio.jpg" class="card-img-top" alt="Servicios Digitales"/>
+                        </h:commandLink>
+                        <div class="card-body">
+                            <h5 class="card-title">#{lang.lblPrestacionServiciosAdmin2}</h5>
+                            <p class="card-text">#{lang.lblPrestacionServiciosAdmin}</p>
+                        </div>
+                        <div class="card-footer">
+                            <h:commandLink action="/OrdenPrestacionServicios/preRegistroOrdenPrestacion?faces-redirect=true">
+                                <i class="pi pi-folder-open mr-2"/>#{lang.lblBotonPrestacionServicios}
+                            </h:commandLink>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </h:form>
+    </ui:define>
+    <ui:define name="footer">
+        <script src="../js/jquery-3.6.0.min.js"></script>
+    </ui:define>
+</ui:composition>
